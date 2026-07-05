@@ -27,7 +27,7 @@ jobs:
           cat repos.json >> "$GITHUB_OUTPUT"
           echo "REPOS_EOF" >> "$GITHUB_OUTPUT"
 
-      - uses: spaceraccoon/vulnerability-spoiler-alert-action@b16483310fbd153dd8a4ece5fa1a29a8fcc004de
+      - uses: spaceraccoon/vulnerability-spoiler-alert-action@786e11ad1487b405eb6f74590630d7dd6ab20975
         with:
           api-key: ${{ secrets.API_KEY }}
           provider: anthropic
