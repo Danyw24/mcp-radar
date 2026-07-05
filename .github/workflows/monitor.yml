@@ -31,13 +31,14 @@ jobs:
         with:
           api-key: ${{ secrets.API_KEY }}
           provider: anthropic
-          model: claude-sonnet-4-6
+          model: claude-sonnet-5
           github-token: ${{ secrets.GITHUB_TOKEN }}
           issue-repo: ${{ github.repository }}
           repositories: ${{ steps.repos.outputs.json }}
           enable-repo-context: true
           enable-judge: true
           triage-model: claude-haiku-4-5
+          judge-model: claude-haiku-4-5
 
       - name: Commit state changes
         run: |
