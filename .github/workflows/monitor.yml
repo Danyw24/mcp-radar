@@ -2,7 +2,7 @@ name: Monitor Vulnerabilities
 
 on:
   schedule:
-    - cron: '*/15 * * * *' # Every 15 minutes
+    - cron: '0 */6 * * *' # Cada 6 horas (techo de costo: 4 corridas/dia, no 96)
   workflow_dispatch:
 
 permissions:
