@@ -1,55 +1,24 @@
 [
-  {
-    "owner": "expressjs",
-    "repo": "express",
-    "cpes": ["cpe:2.3:a:expressjs:express"]
-  },
-  {
-    "owner": "nodejs",
-    "repo": "node",
-    "cpes": ["cpe:2.3:a:nodejs:node.js"]
-  },
-  {
-    "owner": "django",
-    "repo": "django",
-    "cpes": ["cpe:2.3:a:djangoproject:django"]
-  },
-  {
-    "owner": "pallets",
-    "repo": "flask",
-    "cpes": ["cpe:2.3:a:palletsprojects:flask"]
-  },
-  {
-    "owner": "rails",
-    "repo": "rails",
-    "cpes": ["cpe:2.3:a:rubyonrails:rails"]
-  },
-  {
-    "owner": "apache",
-    "repo": "httpd",
-    "cpes": ["cpe:2.3:a:apache:http_server"]
-  },
-  {
-    "owner": "nginx",
-    "repo": "nginx",
-    "cpes": [
-      "cpe:2.3:a:f5:nginx_open_source",
-      "cpe:2.3:a:f5:nginx_plus"
-    ]
-  },
-  {
-    "owner": "grafana",
-    "repo": "grafana",
-    "cpes": ["cpe:2.3:a:grafana:grafana"]
-  },
-  {
-    "owner": "facebook",
-    "repo": "react",
-    "cpes": ["cpe:2.3:a:facebook:react"]
-  },
-  {
-    "owner": "vercel",
-    "repo": "next.js",
-    "cpes": ["cpe:2.3:a:vercel:next.js"]
-  }
+  { "owner": "modelcontextprotocol", "repo": "python-sdk" },
+  { "owner": "modelcontextprotocol", "repo": "typescript-sdk" },
+  { "owner": "modelcontextprotocol", "repo": "go-sdk" },
+  { "owner": "modelcontextprotocol", "repo": "rust-sdk" },
+  { "owner": "modelcontextprotocol", "repo": "servers" },
+  { "owner": "modelcontextprotocol", "repo": "inspector" },
+  { "owner": "PrefectHQ", "repo": "fastmcp" },
+
+  { "owner": "github", "repo": "github-mcp-server" },
+  { "owner": "awslabs", "repo": "mcp" },
+  { "owner": "microsoft", "repo": "playwright-mcp" },
+  { "owner": "ChromeDevTools", "repo": "chrome-devtools-mcp" },
+  { "owner": "googleapis", "repo": "mcp-toolbox" },
+  { "owner": "cloudflare", "repo": "mcp-server-cloudflare" },
+  { "owner": "grafana", "repo": "mcp-grafana" },
+  { "owner": "elastic", "repo": "mcp-server-elasticsearch" },
+
+  { "owner": "oraios", "repo": "serena" },
+  { "owner": "czlonkowski", "repo": "n8n-mcp" },
+  { "owner": "upstash", "repo": "context7" },
+  { "owner": "wonderwhy-er", "repo": "DesktopCommanderMCP" },
+  { "owner": "GLips", "repo": "Figma-Context-MCP" }
 ]
