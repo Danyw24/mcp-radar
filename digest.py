@@ -146,6 +146,71 @@ TITULOS = {
     "kev":        "🔥 KEV — explotado en la práctica",
 }
 
+# Racimos para agrupar los repos. Una lista suelta de 168 lineas es ilegible y
+# esconde lo unico que importa: que varios autores INDEPENDIENTES ataquen el
+# mismo problema la misma semana. Eso es convergencia, y es la senal temprana.
+RACIMOS = [
+    # Orden = prioridad. El primero que matchea gana, asi que lo especifico va arriba.
+    ("prompt injection",         r"prompt inject|jailbreak|tool poison|indirect inject"),
+    ("scanner/audit de MCP",     r"mcp[\w\- ]*(scanner|audit|security|posture|shield)|"
+                                 r"(scanner|audit|security|posture)[\w\- ]*mcp\b"),
+    ("guardrails / firewall",    r"guardrail|firewall|\bwaf\b|sandbox|"
+                                 r"(llm|prompt|agent|ai)[\w\- ]*(defen|protect|filter|shield|proxy|gateway)"),
+    ("red team / ofensivo",      r"red.?team|offensive|pentest|exploit|attack|\bc2\b|honeypot|adversarial"),
+    ("gobernanza / inventario",  r"inventor|governance|complian|posture|observab|audit|policy|"
+                                 r"provenance|trace|telemetr"),
+    ("superficie expuesta",      r"discover|expose|fingerprint|recon|shodan|crawl|enumerat"),
+    ("evaluacion / benchmark",   r"benchmark|\beval\b|evaluat|test.*suite|red.?teaming.*bench"),
+    ("servidores MCP varios",    r"\bmcp\b|model context protocol"),   # cajon MCP, va ultimo
+]
+
+
+def racimo_de(texto):
+    for nombre, pat in RACIMOS:
+        if re.search(pat, texto, re.I):
+            return nombre
+    return "otros"
+
+
+def agrupar_repos(lineas):
+    """Devuelve (resumen_corto, detalle_completo). El resumen va a Telegram y
+    el detalle al archivo: no se pierde nada, solo se separan los canales."""
+    grupos = {}
+    for l in lineas:
+        grupos.setdefault(racimo_de(l), []).append(l)
+
+    def estrellas(l):
+        m = re.search(r"⭐(\d+)", l)
+        return int(m.group(1)) if m else 0
+
+    def autores(ls):
+        return len({l.split("**")[1].split("/")[0] for l in ls if "**" in l})
+
+    # El marcador va AL REVES de la intuicion, y es la lección central del
+    # analisis: convergencia de 3-8 autores independientes en un racimo flaco es
+    # senal temprana y es donde hay lugar. Un racimo de 40 autores no es una
+    # oportunidad, es un mercado al que llegaste tarde. Un aviso que suena
+    # siempre no avisa nada.
+    def marcar(n_repos, n_aut):
+        if 3 <= n_aut <= 8 and n_repos <= 10:
+            return "  🌱 TEMPRANO — pocos autores, esfuerzo independiente"
+        if n_aut > 20:
+            return "  (saturado)"
+        return ""
+
+    resumen, detalle = [], []
+    for nombre, ls in sorted(grupos.items(), key=lambda x: -len(x[1])):
+        n_aut = autores(ls)
+        marca = marcar(len(ls), n_aut)
+        resumen.append(f"**{nombre}** — {len(ls)} repos / {n_aut} autores distintos{marca}")
+        for l in sorted(ls, key=estrellas, reverse=True)[:3]:
+            resumen.append("  " + l)
+        if len(ls) > 3:
+            resumen.append(f"  _(+{len(ls)-3} más, en el archivo del día)_")
+        detalle.append(f"#### {nombre} ({len(ls)} repos / {n_aut} autores)")
+        detalle += sorted(ls, key=estrellas, reverse=True)
+    return "\n".join(resumen), "\n".join(detalle)
+
 
 def main():
     if "--reset" in sys.argv and os.path.exists(ESTADO):
@@ -156,19 +221,28 @@ def main():
     FALLOS.clear()
     datos = recolectar()
 
-    partes, total, revisados = [], 0, 0
+    partes_msg, partes_arch, total, revisados = [], [], 0, 0
     for sec in ("kev", "advisories", "osv", "repos"):   # dolor primero
         vistos = set(estado.get(sec, []))
         nuevos, ids = [], []
         for uid, linea in datos[sec]:
-            if uid in vistos or uid in ids:
+            if uid in vistos or uid in ids:      # dedup: mismo repo en 2 queries
                 continue
             ids.append(uid)
             nuevos.append(linea)
-        revisados += len(datos[sec])
+        # contar UNICOS, no crudos: el numero tiene que ser auditable
+        revisados += len({uid for uid, _ in datos[sec]})
         if nuevos:
-            partes.append(f"### {TITULOS[sec]}\n" + "\n".join(nuevos))
             total += len(nuevos)
+            cab = f"### {TITULOS[sec]}"
+            if sec == "repos":
+                corto, largo = agrupar_repos(nuevos)
+                partes_msg.append(f"{cab} — {len(nuevos)}\n{corto}")
+                partes_arch.append(f"{cab} — {len(nuevos)}\n{largo}")
+            else:
+                bloque = f"{cab}\n" + "\n".join(nuevos)
+                partes_msg.append(bloque)
+                partes_arch.append(bloque)
         estado[sec] = sorted(vistos | set(ids))
 
     hoy = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
@@ -176,18 +250,19 @@ def main():
     if FALLOS:
         aviso = ("\n\n⚠️ **" + str(len(FALLOS)) + " fuente(s) fallaron — la lectura está "
                  "incompleta:**\n" + "\n".join(f"- {f}" for f in FALLOS))
-    pie = f"\n\n_{revisados} items revisados · {total} nuevos_"
+    pie = f"\n\n_{revisados} items únicos revisados · {total} nuevos_"
     if total == 0:
-        cuerpo = f"MCP Radar · {hoy}\n\nSin novedades.{pie}{aviso}"
+        cuerpo = archivo = f"MCP Radar · {hoy}\n\nSin novedades.{pie}{aviso}"
     else:
-        cuerpo = (f"# MCP Radar · {hoy}\n\n**{total} novedades**\n\n"
-                  + "\n\n".join(partes) + pie + aviso)
+        enc = f"# MCP Radar · {hoy}\n\n**{total} novedades**\n\n"
+        cuerpo  = enc + "\n\n".join(partes_msg) + pie + aviso
+        archivo = enc + "\n\n".join(partes_arch) + pie + aviso
 
     json.dump(estado, open(ESTADO, "w"), indent=1)
     os.makedirs(SALIDA, exist_ok=True)
     dest = os.path.join(SALIDA, datetime.now(timezone.utc).strftime("%Y-%m-%d") + ".md")
     if total:
-        open(dest, "a").write(cuerpo + "\n\n")
+        open(dest, "a").write(archivo + "\n\n")   # el archivo lleva TODO
 
     print(cuerpo)
 
