@@ -1,20 +1,32 @@
 #!/usr/bin/env python3
 """Mapa de exposición — quién sigue corriendo una versión ya parcheada río arriba.
 
-Por qué esto vale más que cazar parches silenciosos: es **aritmética, no
-adivinanza**. El advisory publica el rango afectado y la versión con el fix; el
-dependiente escribe su pin en `requirements.txt`. Comparás dos números. No hay
-falso positivo posible por construcción: o el pin está abajo del corte o no.
-
-La ventana no dura horas: dura meses, porque nadie actualiza hasta que algo lo
-obliga. El fix es público y ellos siguen corriendo la versión rota.
+Por qué vale más que cazar parches silenciosos: es aritmética y no adivinanza.
+La ventana no dura horas, dura meses, porque nadie actualiza hasta que algo lo
+obliga: el fix es público y ellos siguen corriendo la versión rota.
 
   python3 exposure.py            # calcula y escribe exposure.json
   python3 exposure.py --tabla    # además imprime la tabla
 
-LÍMITE HONESTO: un pin viejo da un CANDIDATO, no una víctima. Puede que no usen
-el módulo afectado, que ese archivo sea de un ejemplo, o que el repo esté muerto.
-Antes de escribirle a nadie hay que confirmar que ese pin es el que corre.
+CORRECCIÓN IMPORTANTE — este archivo afirmaba que «no hay falso positivo posible
+por construcción». Era FALSO, y no por un error de implementación sino por haber
+modelado mal el problema: comparaba `pin < fixed` mirando un solo extremo, cuando
+un advisory define una VENTANA `[introduced, fixed)`. Quien corre una versión
+anterior a `introduced` no tiene el código vulnerable. Medido contra datos reales:
+371 de 2484 pares (14,9%) eran acusaciones falsas — OpenSPG/KAG con `mcp==1.6.0`
+contra `GHSA-hvrp-rf83-w775`, cuya ventana empieza en 1.23.0. La certeza declarada
+era la parte más peligrosa del archivo, porque desactivaba la sospecha.
+
+TRES LÍMITES QUE SIGUEN VIVOS:
+ 1. Un pin viejo da un CANDIDATO, no una víctima. Puede que no usen el módulo
+    afectado (para eso está confirm.py), que el archivo sea de un ejemplo, o que
+    el repo esté muerto.
+ 2. La fuerza de evidencia NO es la misma: un lock registra la versión resuelta;
+    un requirements o un pyproject declaran una intención que el resolvedor
+    puede satisfacer con otra cosa. Cada fila lo dice en `fuerza_evidencia`.
+ 3. `poetry.lock` y `uv.lock` saturan el tope de búsqueda y quedan con cobertura
+    PARCIAL: el particionado por versión solo funciona sobre `requirements.txt`,
+    porque en un lock la versión no aparece con la forma `pkg==X.Y`.
 """
 import json, os, re, sys, time, urllib.request, urllib.parse, urllib.error
 import versiones as V
@@ -58,9 +70,14 @@ def gh(url):
 
 
 def ver(s):
-    """Normaliza a tupla comparable. '2.13.0.2' -> (2,13,0)."""
-    n = [int(x) for x in re.findall(r"\d+", s)[:3]]
-    return tuple(n + [0] * (3 - len(n)))
+    """NO USAR. Quedaba muerta y se borra a proposito.
+
+    Esta funcion truncaba a 3 componentes y comparaba enteros a lo bruto: decia
+    que 2.13.0.2 == 2.13.0 y que 1.0.0rc1 == 1.0.0. Fue la causa raiz del 14,9%
+    de acusaciones falsas. Usar versiones.py, que tiene fuzz diferencial contra
+    `packaging` y `semver@7`.
+    """
+    raise NotImplementedError("usar versiones.py: clave_pep440 / expuesto_ventana")
 
 
 def advisories(paquete, eco):
@@ -245,7 +262,12 @@ def main():
         # ordenar por IMPACTO, no por cantidad de advisories
         expuestos.sort(key=lambda x: (-x["impacto"], -len(x["advisories"])))
         resultado["paquetes"][paquete] = {
-            "corte_seguro": corte_max, "poblacion_github": total,
+            "corte_seguro": corte_max,
+            # NO se guarda el total_count de GitHub: miente arriba de ~1000
+            # (`extension:txt` reporta menos que su propio subconjunto
+            # `filename:requirements.txt`), asi que publicarlo daba una falsa
+            # sensacion de cobertura. Este numero es lo que se abrio y evaluo.
+            "archivos_evaluados": len(hits), "poblacion_github": len(hits),
             "muestra": len(hits), "expuestos": expuestos,
             "advisories": [{"id": a["id"], "introduced": a["introduced"],
                             "fix": a["fix"], "resumen": a["resumen"]} for a in advs]}
