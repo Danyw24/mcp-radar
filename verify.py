@@ -109,6 +109,36 @@ def evidencia_diff(repo, sha):
     return ev
 
 
+def calibrar_severidad(ev, labels):
+    """Devuelve (nivel, justificacion). Regla: NUNCA afirmar mas de lo que la
+    evidencia aguanta. Si no hay prueba, se dice que no hay prueba — no se
+    inventa un numero. El judge del action llamo "Critical" a un cambio de
+    documentacion; esto existe para que eso no vuelva a pasar."""
+    if ev is None:
+        return "sin-evaluar", "no pude leer el diff"
+    ls = {l.lower() for l in labels}
+    tiene_sink = bool(ev["sinks"])
+    tiene_guarda = bool(ev["guardas"])
+    zona = bool(ev["archivos_sensibles"])
+    tests = ev["tests_adversarios"]
+
+    if ev["solo_docs"]:
+        return "ninguna", "el diff no toca código: no hay superficie que evaluar"
+    if ls & ESCALA:
+        base = "el mantenedor lo etiquetó como seguridad"
+        if tiene_sink or tests:
+            return "alta", base + " y el diff toca una llamada peligrosa o suma tests adversarios"
+        return "media", base + ", pero el diff no muestra sink ni test adversario: la severidad concreta está sin demostrar"
+    if tiene_sink and tiene_guarda:
+        return "media", "el diff agrega una validación sobre una llamada peligrosa — patrón de parche real, falta confirmar explotabilidad"
+    if tiene_guarda and zona:
+        return "baja", "agrega una validación en zona sensible, pero sin sink identificado: puede ser endurecimiento y no un bug explotable"
+    if zona:
+        return "sin-demostrar", ("toca una zona sensible y nada más. NO hay evidencia de vulnerabilidad: "
+                                 "ni sink, ni validación agregada, ni test adversario")
+    return "sin-demostrar", "el diff no muestra ninguna señal de arreglo de seguridad"
+
+
 def veredicto(labels, cuerpo_pr, titulo_pr):
     """Devuelve (disposicion, motivo). Las etiquetas mandan sobre el texto."""
     ls = {l.lower() for l in labels}
@@ -143,7 +173,7 @@ def main():
         cuerpo = i.get("body") or ""
         m = re.search(r"github\.com/([\w.-]+/[\w.-]+)/commit/([0-9a-f]{7,40})", cuerpo)
         if not m:
-            filas.append((i, None, "revisar", "no pude extraer el commit del issue", None))
+            filas.append((i, None, "revisar", "no pude extraer el commit del issue", None, "sin-evaluar", "-"))
             continue
         repo_up, sha = m.group(1), m.group(2)
         try:
@@ -151,13 +181,14 @@ def main():
         except urllib.error.HTTPError:
             prs = []
         if not prs:
-            filas.append((i, None, "revisar", "el commit no vino de un PR — hay que leer el diff", None))
+            filas.append((i, None, "revisar", "el commit no vino de un PR — hay que leer el diff", None, "sin-evaluar", "-"))
             continue
         p = prs[0]
         por_pr[(repo_up, p["number"])].append(i["number"])
         labels = [l["name"] for l in p.get("labels", [])]
         d, motivo = veredicto(labels, p.get("body") or "", p.get("title") or "")
         ev = evidencia_diff(repo_up, sha)
+        sev, sev_por = calibrar_severidad(ev, labels)
         if ev:
             if ev["solo_docs"]:
                 d, motivo = "false-positive", "el diff no toca una sola línea de código: solo documentación"
@@ -165,14 +196,15 @@ def main():
                 d = "revisar"
                 motivo += (" — PERO el diff quita un comentario que admitía el hueco "
                            "como conocido: es deuda anunciada, no parche silencioso")
-        filas.append((i, p, d, motivo, ev))
+        filas.append((i, p, d, motivo, ev, sev, sev_por))
 
     orden = {"true-positive": 0, "revisar": 1, "false-positive": 2}
-    for i, p, d, motivo, ev in sorted(filas, key=lambda x: orden.get(x[2], 9)):
+    for i, p, d, motivo, ev, sev, sev_por in sorted(filas, key=lambda x: orden.get(x[2], 9)):
         icono = {"true-positive": "🔴", "revisar": "🟡", "false-positive": "⚪"}[d]
         pr = f"PR #{p['number']}" if p else "sin PR"
         print(f"\n{icono} #{i['number']:<3} [{d:14}] {pr:9} {i['title'][:60]}")
         print(f"        → {motivo}")
+        print(f"        ⚖  severidad: {sev} — {sev_por}")
         if ev:
             if ev["archivos_sensibles"]:
                 print(f"        📍 zona sensible: {', '.join(ev['archivos_sensibles'][:3])}")
@@ -196,12 +228,13 @@ def main():
         print("\n(dry-run — usá --apply para etiquetar y comentar)")
         return 0
 
-    for i, p, d, motivo, ev in filas:
+    for i, p, d, motivo, ev, sev, sev_por in filas:
         if d == "revisar":
             continue
-        api(f"/repos/{REPO}/issues/{i['number']}/labels", {"labels": [d]})
+        api(f"/repos/{REPO}/issues/{i['number']}/labels", {"labels": [d, f"sev-verificada:{sev}"]})
         api(f"/repos/{REPO}/issues/{i['number']}/comments",
             {"body": f"**Verificación automática: `{d}`**\n\n{motivo}\n\n"
+                     f"**Severidad calibrada: `{sev}`** — {sev_por}\n\n"
                      + (f"PR original: {p['html_url']} · etiquetas del mantenedor: "
                         f"`{'`, `'.join(l['name'] for l in p.get('labels', [])) or 'ninguna'}`"
                         if p else "")})
