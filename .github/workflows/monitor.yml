@@ -30,15 +30,16 @@ jobs:
       - uses: spaceraccoon/vulnerability-spoiler-alert-action@786e11ad1487b405eb6f74590630d7dd6ab20975
         with:
           api-key: ${{ secrets.API_KEY }}
-          provider: anthropic
-          model: claude-sonnet-5
+          provider: openai-compatible
+          base-url: https://openrouter.ai/api/v1
+          model: anthropic/claude-haiku-4.5
           github-token: ${{ secrets.GITHUB_TOKEN }}
           issue-repo: ${{ github.repository }}
           repositories: ${{ steps.repos.outputs.json }}
           enable-repo-context: true
           enable-judge: true
-          triage-model: claude-haiku-4-5
-          judge-model: claude-haiku-4-5
+          triage-model: deepseek/deepseek-v4-flash
+          judge-model: deepseek/deepseek-v4-flash
 
       - name: Commit state changes
         run: |
