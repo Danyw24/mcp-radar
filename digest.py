@@ -340,9 +340,14 @@ def main():
                 if alertas:      # lo mas importante del digest: va arriba de todo
                     partes_msg.insert(0, "## 🌱 CONVERGENCIA TEMPRANA\n" + "\n".join(alertas))
                     partes_arch.insert(0, "## 🌱 CONVERGENCIA TEMPRANA\n" + "\n".join(alertas))
+                # A Telegram va UNA linea. La lista cruda son ~150 repos de 0-1
+                # estrellas: 83% del volumen y nadie la lee. Su valor real es
+                # alimentar al detector de convergencia, que sí avisa arriba.
+                # El detalle completo queda en el archivo del dia, auditable.
                 corto, largo = agrupar_repos(nuevos)
                 hist = resumen_racimos(estado)
-                partes_msg.append(f"{cab} — {len(nuevos)}\n{corto}")
+                partes_msg.append(f"🧭 {len(nuevos)} repos nuevos indexados "
+                                  f"(detalle en el archivo del día)")
                 partes_arch.append(f"{cab} — {len(nuevos)}\n{largo}")
                 partes_arch.append("### 📈 Acumulado histórico por racimo\n" + hist)
             else:
