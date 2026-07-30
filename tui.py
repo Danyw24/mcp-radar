@@ -110,15 +110,22 @@ def cargar_exposicion():
     filas = []
     for paq, info in d.get("paquetes", {}).items():
         filas.append({"titulo": f"── {paq}: seguro >= {info['corte_seguro']} · "
-                                f"{info['poblacion_github']} repos en GitHub · "
+                                f"{info.get('archivos_evaluados', info.get('poblacion_github','?'))} archivos evaluados · "
                                 f"{len(info['expuestos'])} expuestos en la muestra",
                       "detalle": "", "urls": {}, "cabecera": True})
         for e in info["expuestos"]:
             advs = e["advisories"]
             det = [f"repo: {e['repo']}", f"pin: {paq}=={e['pin']}  (seguro >= {info['corte_seguro']})",
-                   f"archivo: {e['archivo']}", "",
+                   f"archivo: {e['archivo']}",
+                   f"evidencia: {e.get('fuerza_evidencia','?')} — {e.get('nota_evidencia','')}",
+                   f"certeza: {e.get('certeza','?')}", "",
                    f"{len(advs)} advisories lo alcanzan:"]
-            det += [f"  · {a['id']}  fix en {a['fix']}  — {a['resumen'][:90]}" for a in advs[:12]]
+            # `fix` puede venir None: hay advisories que solo publican
+            # `last_affected`. Antes esto imprimia literalmente "fix en None".
+            for a in advs[:12]:
+                ini = a.get("introduced", "0")
+                fin = a.get("fix") or (f"<={a['last_affected']}" if a.get("last_affected") else "?")
+                det.append(f"  · {a['id']}  ventana [{ini}, {fin})  — {a['resumen'][:80]}")
             det += ["", "⚠️ un pin viejo es un CANDIDATO, no una víctima: hay que confirmar",
                     "   que ese archivo es el que corre y que usan el módulo afectado."]
             filas.append({
