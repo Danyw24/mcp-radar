@@ -46,5 +46,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .vulnerability-spoiler-state.json
-          git diff --staged --quiet || git commit -m "chore: update vulnerability monitor state"
-          git push
+          git diff --staged --quiet && exit 0
+          git commit -m "chore: update vulnerability monitor state"
+          # La rama puede haber avanzado mientras corria el analisis (otro push,
+          # o un re-run parado en un commit viejo). Sin esto el push se rechaza
+          # con "fetch first" y el job entero falla aunque el analisis haya ido bien.
+          for i in 1 2 3; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep 5
+          done
+          exit 1
