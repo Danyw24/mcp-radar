@@ -11,7 +11,7 @@ vacio la segunda vez: ese es el test de que el diff funciona.
 
 GITHUB_TOKEN en el entorno sube el limite de rate de 60/h a 5000/h (opcional).
 """
-import json, os, re, sys, subprocess, urllib.request, urllib.error, urllib.parse
+import json, os, re, sys, time, subprocess, urllib.request, urllib.error, urllib.parse
 from datetime import datetime, timedelta, timezone
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
@@ -47,7 +47,13 @@ KEV_URL = ("https://www.cisa.gov/sites/default/files/feeds/"
            "known_exploited_vulnerabilities.json")
 
 
-def http(url, data=None):
+# Fuentes que fallaron en la corrida actual. Es lo que evita el peor modo de
+# falla: que el digest imprima "sin novedades" cuando en realidad no pudo leer
+# nada. Un radar en el que no podes confiar es peor que no tener radar.
+FALLOS = []
+
+
+def http(url, data=None, etiqueta=""):
     cab = {"User-Agent": "mcp-radar", "Accept": "application/vnd.github+json"}
     tok = os.environ.get("GITHUB_TOKEN")
     if tok and "api.github.com" in url:
@@ -55,14 +61,21 @@ def http(url, data=None):
     if data is not None:
         data = json.dumps(data).encode()
         cab["Content-Type"] = "application/json"
-    try:
-        with urllib.request.urlopen(
-                urllib.request.Request(url, data=data, headers=cab), timeout=40) as r:
-            return json.load(r)
-    except urllib.error.HTTPError as e:
-        print(f"  [aviso] {e.code} en {url[:70]}", file=sys.stderr)
-    except Exception as e:
-        print(f"  [aviso] {type(e).__name__} en {url[:70]}", file=sys.stderr)
+    for intento in range(2):
+        try:
+            with urllib.request.urlopen(
+                    urllib.request.Request(url, data=data, headers=cab), timeout=40) as r:
+                return json.load(r)
+        except urllib.error.HTTPError as e:
+            if e.code in (403, 429) and intento == 0:
+                time.sleep(20)          # rate limit: esperar y reintentar una vez
+                continue
+            motivo = f"HTTP {e.code}"
+        except Exception as e:
+            motivo = type(e).__name__
+        FALLOS.append(f"{etiqueta or url[:50]} → {motivo}")
+        print(f"  [fallo] {etiqueta or url[:60]}: {motivo}", file=sys.stderr)
+        return None
     return None
 
 
@@ -81,7 +94,7 @@ def recolectar():
         url = ("https://api.github.com/search/repositories?q="
                + urllib.parse.quote(q) + f"+in:name,description+created:>{desde}"
                "&sort=stars&order=desc&per_page=30")
-        r = http(url)
+        r = http(url, etiqueta=f"búsqueda repos: {q}")
         for it in (r or {}).get("items", []):
             d = it.get("description") or ""
             if not NICHO_ANCHO.search(d + " " + it["full_name"]):
@@ -91,7 +104,8 @@ def recolectar():
                 f"- **{it['full_name']}** · ⭐{it['stargazers_count']} · "
                 f"{it['created_at'][:10]} · {d[:110]}"))
 
-    r = http("https://api.github.com/advisories?per_page=100&sort=published&direction=desc")
+    r = http("https://api.github.com/advisories?per_page=100&sort=published&direction=desc",
+             etiqueta="advisories de GitHub")
     for a in (r or []):
         res = (a.get("summary") or "")
         pk = ", ".join(p["package"]["name"] for p in a.get("vulnerabilities", [])
@@ -105,14 +119,15 @@ def recolectar():
 
     for nom, eco in PAQUETES_OSV:
         r = http("https://api.osv.dev/v1/query",
-                 {"package": {"name": nom, "ecosystem": eco}})
+                 {"package": {"name": nom, "ecosystem": eco}},
+                 etiqueta=f"OSV: {nom} ({eco})")
         for v in (r or {}).get("vulns", []):
             out["osv"].append((
                 v["id"],
                 f"- **{v['id']}** · `{nom}` ({eco}) · {v.get('published','')[:10]} · "
                 f"{(v.get('summary') or '')[:110]}"))
 
-    r = http(KEV_URL)
+    r = http(KEV_URL, etiqueta="CISA KEV")
     for v in (r or {}).get("vulnerabilities", []):
         texto = v["vulnerabilityName"] + " " + v.get("shortDescription", "")
         if not NICHO_ESTRICTO.search(texto):
@@ -138,9 +153,10 @@ def main():
         print("estado borrado")
 
     estado = cargar_estado()
+    FALLOS.clear()
     datos = recolectar()
 
-    partes, total = [], 0
+    partes, total, revisados = [], 0, 0
     for sec in ("kev", "advisories", "osv", "repos"):   # dolor primero
         vistos = set(estado.get(sec, []))
         nuevos, ids = [], []
@@ -149,16 +165,23 @@ def main():
                 continue
             ids.append(uid)
             nuevos.append(linea)
+        revisados += len(datos[sec])
         if nuevos:
             partes.append(f"### {TITULOS[sec]}\n" + "\n".join(nuevos))
             total += len(nuevos)
         estado[sec] = sorted(vistos | set(ids))
 
     hoy = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    aviso = ""
+    if FALLOS:
+        aviso = ("\n\n⚠️ **" + str(len(FALLOS)) + " fuente(s) fallaron — la lectura está "
+                 "incompleta:**\n" + "\n".join(f"- {f}" for f in FALLOS))
+    pie = f"\n\n_{revisados} items revisados · {total} nuevos_"
     if total == 0:
-        cuerpo = f"MCP Radar · {hoy}\n\nSin novedades."
+        cuerpo = f"MCP Radar · {hoy}\n\nSin novedades.{pie}{aviso}"
     else:
-        cuerpo = f"# MCP Radar · {hoy}\n\n**{total} novedades**\n\n" + "\n\n".join(partes)
+        cuerpo = (f"# MCP Radar · {hoy}\n\n**{total} novedades**\n\n"
+                  + "\n\n".join(partes) + pie + aviso)
 
     json.dump(estado, open(ESTADO, "w"), indent=1)
     os.makedirs(SALIDA, exist_ok=True)
@@ -168,7 +191,7 @@ def main():
 
     print(cuerpo)
 
-    if "--send" in sys.argv and total:
+    if "--send" in sys.argv and (total or FALLOS):
         try:
             subprocess.run(["hermes", "send", "-t", "telegram", cuerpo[:3500]],
                            check=True, timeout=60)
