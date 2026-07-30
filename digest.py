@@ -43,6 +43,10 @@ BUSQUEDAS_REPO = ["mcp security", "ai agent security", "llm security",
 PAQUETES_OSV = [("mcp", "PyPI"), ("fastmcp", "PyPI"),
                 ("@modelcontextprotocol/sdk", "npm")]
 
+# Los ecosistemas donde vive el software de agentes. Se consultan por separado
+# para no depender de "los ultimos 100 del mundo", que se satura y pierde cosas.
+ECOSISTEMAS = ["npm", "pip", "go", "rust", "actions"]
+
 KEV_URL = ("https://www.cisa.gov/sites/default/files/feeds/"
            "known_exploited_vulnerabilities.json")
 
@@ -53,9 +57,24 @@ KEV_URL = ("https://www.cisa.gov/sites/default/files/feeds/"
 FALLOS = []
 
 
+TOKEN_FILE = os.path.expanduser("~/.config/mcp-radar/github-token")
+
+
+def token_github():
+    """Sin token son 60 peticiones/hora y el digest hace ~35: se cae a la mitad
+    de la corrida. Con token son 5000/h. Alcanza uno fine-grained de SOLO
+    lectura publica — no hace falta ningun scope de escritura."""
+    t = os.environ.get("GITHUB_TOKEN")
+    if t:
+        return t.strip()
+    if os.path.exists(TOKEN_FILE):
+        return open(TOKEN_FILE).read().strip()
+    return None
+
+
 def http(url, data=None, etiqueta=""):
     cab = {"User-Agent": "mcp-radar", "Accept": "application/vnd.github+json"}
-    tok = os.environ.get("GITHUB_TOKEN")
+    tok = token_github()
     if tok and "api.github.com" in url:
         cab["Authorization"] = f"Bearer {tok}"
     if data is not None:
@@ -80,9 +99,67 @@ def http(url, data=None, etiqueta=""):
 
 
 def cargar_estado():
+    base = {"repos": [], "advisories": [], "osv": [], "kev": [], "racimos": {}}
     if os.path.exists(ESTADO):
-        return json.load(open(ESTADO))
-    return {"repos": [], "advisories": [], "osv": [], "kev": []}
+        base.update(json.load(open(ESTADO)))
+    base.setdefault("racimos", {})
+    return base
+
+
+def semana_actual():
+    a, s, _ = datetime.now(timezone.utc).isocalendar()
+    return f"{a}-W{s:02d}"
+
+
+def actualizar_racimos(estado, lineas_nuevas):
+    """Acumula autores por racimo a lo largo de las semanas.
+
+    El digest diario NO puede ver convergencia: un racimo emergente se forma en
+    semanas y la ventana de busqueda es de 7 dias. Esto es lo que sí lo ve —
+    guarda el historico de autores por racimo y detecta cuando uno FLACO suma
+    varios autores nuevos e independientes en una semana. Esa es la senal
+    temprana de verdad; un racimo con 40 autores ya es un mercado perdido.
+    """
+    sem = semana_actual()
+    alertas = []
+    for l in lineas_nuevas:
+        if "**" not in l:
+            continue
+        autor = l.split("**")[1].split("/")[0]
+        r = estado["racimos"].setdefault(racimo_de(l),
+                                         {"autores": [], "por_semana": {}})
+        if autor not in r["autores"]:
+            r["autores"].append(autor)
+            r["por_semana"][sem] = r["por_semana"].get(sem, 0) + 1
+
+    for nombre, r in estado["racimos"].items():
+        nuevos = r["por_semana"].get(sem, 0)
+        total = len(r["autores"])
+        previas = set(r["por_semana"]) - {sem}
+        # Sin semanas anteriores esto es el baseline, no una senal: en la primera
+        # corrida TODO autor es nuevo. Callar hasta tener con que comparar.
+        if not previas:
+            continue
+        base = total - nuevos
+        # Tres condiciones juntas, y las tres importan:
+        #   base >= 2   -> ya habia un racimo, no es el primer registro
+        #   nuevos >= 3 -> aceleracion real, no un entrante suelto
+        #   total <= 15 -> sigue siendo flaco; con 40 autores llegaste tarde
+        if base >= 2 and nuevos >= 3 and total <= 15:
+            alertas.append(f"🌱 **{nombre}** — {nuevos} autores nuevos esta semana "
+                           f"sobre una base de {base}. Racimo flaco recibiendo "
+                           f"esfuerzo independiente: mirarlo ahora.")
+    return alertas
+
+
+def resumen_racimos(estado, top=6):
+    filas = sorted(estado["racimos"].items(), key=lambda x: -len(x[1]["autores"]))
+    out = []
+    for nombre, r in filas[:top]:
+        sem = r["por_semana"].get(semana_actual(), 0)
+        delta = f" (+{sem} esta semana)" if sem else ""
+        out.append(f"- {nombre}: {len(r['autores'])} autores acumulados{delta}")
+    return "\n".join(out)
 
 
 def recolectar():
@@ -104,18 +181,39 @@ def recolectar():
                 f"- **{it['full_name']}** · ⭐{it['stargazers_count']} · "
                 f"{it['created_at'][:10]} · {d[:110]}"))
 
-    r = http("https://api.github.com/advisories?per_page=100&sort=published&direction=desc",
-             etiqueta="advisories de GitHub")
-    for a in (r or []):
-        res = (a.get("summary") or "")
-        pk = ", ".join(p["package"]["name"] for p in a.get("vulnerabilities", [])
-                       if p.get("package"))
-        if not NICHO_ESTRICTO.search(res + " " + pk):
-            continue
-        out["advisories"].append((
-            a["ghsa_id"],
-            f"- **{a['ghsa_id']}** · {a.get('severity','?')} · `{pk[:50]}` · "
-            f"{a['published_at'][:10]} · {res[:110]}"))
+    # Antes se pedian "los ultimos 100 del mundo" sin filtro del lado del
+    # servidor: un dia con avalancha de advisories empujaba los de MCP fuera de
+    # esa pagina y se perdian EN SILENCIO. Ahora se consulta por ecosistema, con
+    # ventana de fecha y paginando hasta agotar. Cobertura completa, no muestreo.
+    # OJO: mandar `published` junto con `ecosystem` hace que GitHub DESCARTE el
+    # filtro de ecosistema en silencio (ecosystem=npm devolvia nuget y maven).
+    # Por eso el corte por fecha se hace del lado del cliente y `published` no
+    # se manda. Sin esto uno cree tener cobertura por ecosistema y no la tiene.
+    desde_adv = (datetime.now(timezone.utc) - timedelta(days=30)).strftime("%Y-%m-%d")
+    for eco in ECOSISTEMAS:
+        for pagina in range(1, 6):              # tope de seguridad: 500 por eco
+            u = ("https://api.github.com/advisories?"
+                 f"ecosystem={eco}&per_page=100&page={pagina}"
+                 "&sort=published&direction=desc")
+            r = http(u, etiqueta=f"advisories {eco} p{pagina}")
+            if not r:
+                break
+            viejo = False
+            for a in r:
+                if a.get("published_at", "")[:10] < desde_adv:
+                    viejo = True               # vienen ordenados desc: cortar
+                    continue
+                res = (a.get("summary") or "")
+                pk = ", ".join(p["package"]["name"] for p in a.get("vulnerabilities", [])
+                               if p.get("package"))
+                if not NICHO_ESTRICTO.search(res + " " + pk):
+                    continue
+                out["advisories"].append((
+                    a["ghsa_id"],
+                    f"- **{a['ghsa_id']}** · {a.get('severity','?')} · `{pk[:50]}` · "
+                    f"{a['published_at'][:10]} · {res[:110]}"))
+            if viejo or len(r) < 100:
+                break
 
     for nom, eco in PAQUETES_OSV:
         r = http("https://api.osv.dev/v1/query",
@@ -219,6 +317,8 @@ def main():
 
     estado = cargar_estado()
     FALLOS.clear()
+    if not token_github():
+        FALLOS.append("sin GITHUB_TOKEN → 60 req/h, la lectura va a quedar incompleta")
     datos = recolectar()
 
     partes_msg, partes_arch, total, revisados = [], [], 0, 0
@@ -236,9 +336,15 @@ def main():
             total += len(nuevos)
             cab = f"### {TITULOS[sec]}"
             if sec == "repos":
+                alertas = actualizar_racimos(estado, nuevos)
+                if alertas:      # lo mas importante del digest: va arriba de todo
+                    partes_msg.insert(0, "## 🌱 CONVERGENCIA TEMPRANA\n" + "\n".join(alertas))
+                    partes_arch.insert(0, "## 🌱 CONVERGENCIA TEMPRANA\n" + "\n".join(alertas))
                 corto, largo = agrupar_repos(nuevos)
+                hist = resumen_racimos(estado)
                 partes_msg.append(f"{cab} — {len(nuevos)}\n{corto}")
                 partes_arch.append(f"{cab} — {len(nuevos)}\n{largo}")
+                partes_arch.append("### 📈 Acumulado histórico por racimo\n" + hist)
             else:
                 bloque = f"{cab}\n" + "\n".join(nuevos)
                 partes_msg.append(bloque)
