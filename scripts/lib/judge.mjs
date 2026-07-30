@@ -10,9 +10,16 @@ const API_KEY = process.env.JUDGE_API_KEY || "";
 const MODEL =
   process.env.JUDGE_MODEL ||
   (PROVIDER === "openai" ? "gpt-5.4-mini" : "claude-haiku-4-5");
+// Endpoint OpenAI-compatible. Cualquier gateway que hable ese protocolo sirve
+// (OpenRouter, Groq, Together, un Ollama local). Sin esto el judge solo podia
+// hablar con Anthropic u OpenAI directo.
+const BASE_URL = (process.env.JUDGE_BASE_URL || "https://api.openai.com/v1").replace(/\/$/, "");
 
 export function judgeConfigured() {
-  return Boolean(API_KEY) && (PROVIDER === "anthropic" || PROVIDER === "openai");
+  return (
+    Boolean(API_KEY) &&
+    (PROVIDER === "anthropic" || PROVIDER === "openai" || PROVIDER === "openai-compatible")
+  );
 }
 
 const VERDICT_SCHEMA = {
@@ -84,7 +91,7 @@ async function callAnthropic(prompt) {
 // OpenAI structured outputs with strict JSON-schema validation: the response
 // is guaranteed to match VERDICT_SCHEMA or the API returns an error.
 async function callOpenAI(prompt) {
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+  const response = await fetch(`${BASE_URL}/chat/completions`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${API_KEY}`,
@@ -105,7 +112,7 @@ async function callOpenAI(prompt) {
     }),
   });
   if (!response.ok) {
-    throw new Error(`OpenAI API ${response.status}: ${await response.text()}`);
+    throw new Error(`OpenAI-compatible API ${response.status}: ${await response.text()}`);
   }
   const data = await response.json();
   const content = data.choices?.[0]?.message?.content;
