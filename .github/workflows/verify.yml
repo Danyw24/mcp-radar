@@ -1,0 +1,54 @@
+name: Verify findings
+
+# Corre DESPUES del monitor: los hallazgos llegan ya clasificados en vez de
+# quedar crudos hasta que alguien los mire a mano. Tambien regenera el marcador
+# de rendimiento, que es lo unico que va a decir si el radar sirve.
+on:
+  workflow_run:
+    workflows: ["Monitor Vulnerabilities"]
+    types: [completed]
+  workflow_dispatch:
+  schedule:
+    - cron: '30 6 * * *'
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: verify
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Verificar hallazgos (etiquetas del PR + evidencia del diff)
+        run: python3 verify.py --apply
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Regenerar marcador de rendimiento
+        run: python3 scoreboard.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RADAR_REPO: ${{ github.repository }}
+
+      - name: Commit del marcador
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add SCOREBOARD.md
+          git diff --staged --quiet && exit 0
+          git commit -m "chore: actualizar marcador de rendimiento"
+          for i in 1 2 3; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep 5
+          done
+          exit 1
