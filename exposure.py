@@ -82,6 +82,44 @@ def advisories(paquete, eco):
     return sorted(out, key=lambda x: ver(x[1]), reverse=True)
 
 
+def meta_repo(full, _cache={}):
+    """Datos de impacto. Un repo muerto o sin usuarios NO es un objetivo,
+    aunque lo alcancen ocho advisories."""
+    if full in _cache:
+        return _cache[full]
+    d = gh(f"https://api.github.com/repos/{full}") or {}
+    _cache[full] = {
+        "estrellas": d.get("stargazers_count", 0),
+        "forks": d.get("forks_count", 0),
+        "ultimo_push": (d.get("pushed_at") or "")[:10],
+        "archivado": bool(d.get("archived")),
+        "es_fork": bool(d.get("fork")),
+    }
+    return _cache[full]
+
+
+def impacto(meta, n_advisories):
+    """Score 0-100. Ordena la cola de trabajo por a quién le importa de verdad.
+
+    Ordenar por cantidad de advisories era el criterio equivocado: un repo de 3
+    estrellas alcanzado por 8 advisories no le importa a nadie; microsoft/UFO
+    con los mismos 8 sí. Lo que manda es el alcance, después la vigencia, y
+    recién al final cuántos advisories acumula.
+    """
+    if meta["archivado"] or meta["es_fork"]:
+        return 0
+    e = meta["estrellas"]
+    alcance = 45 if e >= 5000 else 35 if e >= 1000 else 25 if e >= 200 else \
+              15 if e >= 50 else 6 if e >= 10 else 0
+    vigencia = 0
+    p = meta["ultimo_push"]
+    if p:
+        vigencia = 30 if p >= "2026-07-01" else 20 if p >= "2026-04-01" else \
+                   10 if p >= "2025-07-01" else 0
+    forks = min(10, meta["forks"] // 20)
+    return min(100, alcance + vigencia + forks + min(15, n_advisories))
+
+
 def buscar_pins(paquete, archivo, paginas=2):
     hits = []
     for pag in range(1, paginas + 1):
@@ -123,14 +161,19 @@ def main():
             afecta = [{"id": a, "fix": f, "resumen": s, "severidad": sv}
                       for a, f, s, sv in advs if ver(pin) < ver(f)]
             if afecta:
+                mt = meta_repo(full)
                 expuestos.append({
                     "repo": full, "pin": pin, "archivo": it["path"],
                     "url_repo": f"https://github.com/{full}",
                     "url_archivo": f"https://github.com/{full}/blob/HEAD/{it['path']}",
                     "advisories": afecta,
+                    "estrellas": mt["estrellas"], "ultimo_push": mt["ultimo_push"],
+                    "archivado": mt["archivado"], "es_fork": mt["es_fork"],
+                    "impacto": impacto(mt, len(afecta)),
                 })
             time.sleep(0.12)
-        expuestos.sort(key=lambda x: -len(x["advisories"]))
+        # ordenar por IMPACTO, no por cantidad de advisories
+        expuestos.sort(key=lambda x: (-x["impacto"], -len(x["advisories"])))
         resultado["paquetes"][paquete] = {
             "corte_seguro": corte_max, "poblacion_github": total,
             "muestra": len(hits), "expuestos": expuestos,
@@ -144,9 +187,12 @@ def main():
     if "--tabla" in sys.argv:
         for paq, d in resultado["paquetes"].items():
             print(f"\n===== {paq} (seguro >= {d['corte_seguro']}) =====")
-            for e in d["expuestos"][:15]:
-                ids = ", ".join(a["id"] for a in e["advisories"][:3])
-                print(f"  {e['repo'][:44]:44} pin {e['pin']:<12} {len(e['advisories'])} advisories  {ids}")
+            print(f"  {'impacto':>7} {'⭐':>7}  {'último push':11}  {'repo':38} {'pin':12} adv")
+            for e in d["expuestos"][:14]:
+                print(f"  {e['impacto']:>7} {e['estrellas']:>7}  {e['ultimo_push']:11}  "
+                      f"{e['repo'][:38]:38} {e['pin']:<12} {len(e['advisories'])}")
+            muertos = sum(1 for e in d["expuestos"] if e["impacto"] == 0)
+            print(f"  ({muertos} con impacto 0: archivados, forks o sin usuarios — al fondo)")
     return 0
 
 
