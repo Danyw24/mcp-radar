@@ -1,24 +1,74 @@
 [
-  { "owner": "modelcontextprotocol", "repo": "python-sdk" },
-  { "owner": "modelcontextprotocol", "repo": "typescript-sdk" },
-  { "owner": "modelcontextprotocol", "repo": "go-sdk" },
-  { "owner": "modelcontextprotocol", "repo": "rust-sdk" },
-  { "owner": "modelcontextprotocol", "repo": "servers" },
-  { "owner": "modelcontextprotocol", "repo": "inspector" },
-  { "owner": "PrefectHQ", "repo": "fastmcp" },
-
-  { "owner": "github", "repo": "github-mcp-server" },
-  { "owner": "awslabs", "repo": "mcp" },
-  { "owner": "microsoft", "repo": "playwright-mcp" },
-  { "owner": "ChromeDevTools", "repo": "chrome-devtools-mcp" },
-  { "owner": "googleapis", "repo": "mcp-toolbox" },
-  { "owner": "cloudflare", "repo": "mcp-server-cloudflare" },
-  { "owner": "grafana", "repo": "mcp-grafana" },
-  { "owner": "elastic", "repo": "mcp-server-elasticsearch" },
-
-  { "owner": "oraios", "repo": "serena" },
-  { "owner": "czlonkowski", "repo": "n8n-mcp" },
-  { "owner": "upstash", "repo": "context7" },
-  { "owner": "wonderwhy-er", "repo": "DesktopCommanderMCP" },
-  { "owner": "GLips", "repo": "Figma-Context-MCP" }
+  {
+    "owner": "modelcontextprotocol",
+    "repo": "python-sdk"
+  },
+  {
+    "owner": "modelcontextprotocol",
+    "repo": "typescript-sdk"
+  },
+  {
+    "owner": "modelcontextprotocol",
+    "repo": "go-sdk"
+  },
+  {
+    "owner": "modelcontextprotocol",
+    "repo": "rust-sdk"
+  },
+  {
+    "owner": "modelcontextprotocol",
+    "repo": "servers"
+  },
+  {
+    "owner": "modelcontextprotocol",
+    "repo": "inspector"
+  },
+  {
+    "owner": "PrefectHQ",
+    "repo": "fastmcp"
+  },
+  {
+    "owner": "github",
+    "repo": "github-mcp-server"
+  },
+  {
+    "owner": "awslabs",
+    "repo": "mcp"
+  },
+  {
+    "owner": "microsoft",
+    "repo": "playwright-mcp"
+  },
+  {
+    "owner": "ChromeDevTools",
+    "repo": "chrome-devtools-mcp"
+  },
+  {
+    "owner": "googleapis",
+    "repo": "mcp-toolbox"
+  },
+  {
+    "owner": "cloudflare",
+    "repo": "mcp-server-cloudflare"
+  },
+  {
+    "owner": "grafana",
+    "repo": "mcp-grafana"
+  },
+  {
+    "owner": "oraios",
+    "repo": "serena"
+  },
+  {
+    "owner": "czlonkowski",
+    "repo": "n8n-mcp"
+  },
+  {
+    "owner": "upstash",
+    "repo": "context7"
+  },
+  {
+    "owner": "wonderwhy-er",
+    "repo": "DesktopCommanderMCP"
+  }
 ]
