@@ -1,4 +1,4 @@
-# Marcador MCP Radar · 2026-10-02
+# Marcador MCP Radar · 2026-10-03
 
 | Métrica | Valor |
 |---|---|
