@@ -25,6 +25,9 @@ jobs:
         run: |
           echo "json<<REPOS_EOF" >> "$GITHUB_OUTPUT"
           cat repos.json >> "$GITHUB_OUTPUT"
+          # newline de seguridad: sin el, un repos.json sin salto final pega el
+          # delimitador al contenido (]REPOS_EOF) y el heredoc nunca cierra
+          echo "" >> "$GITHUB_OUTPUT"
           echo "REPOS_EOF" >> "$GITHUB_OUTPUT"
 
       - uses: spaceraccoon/vulnerability-spoiler-alert-action@786e11ad1487b405eb6f74590630d7dd6ab20975
