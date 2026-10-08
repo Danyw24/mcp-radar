@@ -29,9 +29,9 @@
 | wonderwhy-er/DesktopCommanderMCP | 10 |
 | PrefectHQ/fastmcp | 9 |
 | modelcontextprotocol/servers | 9 |
-| modelcontextprotocol/rust-sdk | 7 |
+| github/github-mcp-server | 7 |
 | ChromeDevTools/chrome-devtools-mcp | 6 |
-| github/github-mcp-server | 6 |
+| modelcontextprotocol/rust-sdk | 6 |
 | oraios/serena | 5 |
 | upstash/context7 | 4 |
 | czlonkowski/n8n-mcp | 3 |
