@@ -1,4 +1,4 @@
-# Marcador MCP Radar · 2026-10-07
+# Marcador MCP Radar · 2026-10-08
 
 | Métrica | Valor |
 |---|---|
@@ -24,12 +24,12 @@
 
 | Repo | Hallazgos |
 |---|---|
-| modelcontextprotocol/inspector | 20 |
+| modelcontextprotocol/inspector | 23 |
 | awslabs/mcp | 12 |
 | wonderwhy-er/DesktopCommanderMCP | 10 |
-| modelcontextprotocol/rust-sdk | 10 |
 | PrefectHQ/fastmcp | 9 |
 | modelcontextprotocol/servers | 9 |
+| modelcontextprotocol/rust-sdk | 7 |
 | ChromeDevTools/chrome-devtools-mcp | 6 |
 | github/github-mcp-server | 6 |
 | oraios/serena | 5 |
