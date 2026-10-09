@@ -30,9 +30,9 @@
 | wonderwhy-er/DesktopCommanderMCP | 10 |
 | ChromeDevTools/chrome-devtools-mcp | 7 |
 | github/github-mcp-server | 7 |
-| modelcontextprotocol/servers | 6 |
+| upstash/context7 | 5 |
 | oraios/serena | 5 |
-| upstash/context7 | 4 |
+| modelcontextprotocol/servers | 4 |
 | czlonkowski/n8n-mcp | 3 |
 | grafana/mcp-grafana | 3 |
 | cloudflare/mcp-server-cloudflare | 2 |
