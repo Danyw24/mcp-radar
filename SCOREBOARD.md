@@ -25,17 +25,17 @@
 | Repo | Hallazgos |
 |---|---|
 | PrefectHQ/fastmcp | 16 |
+| wonderwhy-er/DesktopCommanderMCP | 12 |
 | awslabs/mcp | 12 |
-| wonderwhy-er/DesktopCommanderMCP | 10 |
 | oraios/serena | 9 |
-| modelcontextprotocol/inspector | 9 |
+| github/github-mcp-server | 8 |
 | modelcontextprotocol/servers | 8 |
 | ChromeDevTools/chrome-devtools-mcp | 7 |
-| github/github-mcp-server | 7 |
-| upstash/context7 | 5 |
-| modelcontextprotocol/go-sdk | 4 |
+| upstash/context7 | 6 |
+| modelcontextprotocol/go-sdk | 5 |
 | grafana/mcp-grafana | 4 |
 | googleapis/mcp-toolbox | 3 |
+| modelcontextprotocol/inspector | 3 |
 
 ---
 _Generado por `scoreboard.py`. Lo que no se puede medir todavía aparece como «sin datos», nunca como una estimación._
