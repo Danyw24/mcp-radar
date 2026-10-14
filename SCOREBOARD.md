@@ -3,9 +3,9 @@
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 12 |
+| Verificados como reales | 7 |
 | Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 88 |
+| Sin verificar todavía | 93 |
 | **Precisión del monitor** | **100%** |
 | Hallazgos que después tuvieron CVE | 0 |
 
@@ -17,25 +17,24 @@
 
 | Nivel | Hallazgos |
 |---|---|
-| sin-demostrar | 11 |
-| media | 1 |
+| sin-demostrar | 7 |
 
 ## Por repo vigilado
 
 | Repo | Hallazgos |
 |---|---|
-| PrefectHQ/fastmcp | 13 |
 | wonderwhy-er/DesktopCommanderMCP | 12 |
 | awslabs/mcp | 12 |
 | ChromeDevTools/chrome-devtools-mcp | 9 |
 | oraios/serena | 9 |
-| github/github-mcp-server | 8 |
+| modelcontextprotocol/inspector | 8 |
 | modelcontextprotocol/servers | 8 |
+| modelcontextprotocol/go-sdk | 7 |
 | upstash/context7 | 7 |
-| modelcontextprotocol/go-sdk | 5 |
+| github/github-mcp-server | 7 |
+| PrefectHQ/fastmcp | 7 |
 | grafana/mcp-grafana | 4 |
 | googleapis/mcp-toolbox | 3 |
-| modelcontextprotocol/inspector | 3 |
 
 ---
 _Generado por `scoreboard.py`. Lo que no se puede medir todavía aparece como «sin datos», nunca como una estimación._
