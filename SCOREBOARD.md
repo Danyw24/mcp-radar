@@ -25,15 +25,15 @@
 |---|---|
 | wonderwhy-er/DesktopCommanderMCP | 12 |
 | awslabs/mcp | 12 |
+| oraios/serena | 10 |
 | ChromeDevTools/chrome-devtools-mcp | 9 |
-| oraios/serena | 9 |
+| modelcontextprotocol/go-sdk | 8 |
 | modelcontextprotocol/inspector | 8 |
 | modelcontextprotocol/servers | 8 |
-| modelcontextprotocol/go-sdk | 7 |
 | upstash/context7 | 7 |
-| github/github-mcp-server | 7 |
 | PrefectHQ/fastmcp | 7 |
 | grafana/mcp-grafana | 4 |
+| github/github-mcp-server | 3 |
 | googleapis/mcp-toolbox | 3 |
 
 ---
