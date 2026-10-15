@@ -3,15 +3,17 @@
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 7 |
+| Verificados como reales | 8 |
 | Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 93 |
+| Sin verificar todavía | 92 |
 | **Precisión del monitor** | **100%** |
-| Hallazgos que después tuvieron CVE | 0 |
+| Hallazgos que después tuvieron CVE | 1 |
 
 ## Lead time — la métrica que justifica el sistema
 
-**Sin datos todavía.** Ningún hallazgo tiene CVE publicado aún. Esto es lo esperable al principio: la ventaja se demuestra recién cuando un CVE aparece *después* de que el radar lo vio. Si pasan meses y este número sigue vacío, el radar está detectando endurecimiento y no vulnerabilidades, y hay que replantearlo.
+| CVE | Issue | Detectado |
+|---|---|---|
+| CVE-2026-109965 | #165 | 2026-10-12 |
 
 ## Severidad calibrada
 
