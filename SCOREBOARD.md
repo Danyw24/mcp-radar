@@ -25,13 +25,13 @@
 
 | Repo | Hallazgos |
 |---|---|
+| oraios/serena | 13 |
 | wonderwhy-er/DesktopCommanderMCP | 12 |
-| awslabs/mcp | 11 |
 | ChromeDevTools/chrome-devtools-mcp | 10 |
-| oraios/serena | 10 |
 | modelcontextprotocol/go-sdk | 8 |
 | modelcontextprotocol/inspector | 8 |
 | modelcontextprotocol/servers | 8 |
+| awslabs/mcp | 8 |
 | upstash/context7 | 7 |
 | PrefectHQ/fastmcp | 7 |
 | grafana/mcp-grafana | 4 |
