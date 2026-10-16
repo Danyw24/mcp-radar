@@ -3,9 +3,9 @@
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 8 |
+| Verificados como reales | 11 |
 | Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 92 |
+| Sin verificar todavía | 89 |
 | **Precisión del monitor** | **100%** |
 | Hallazgos que después tuvieron CVE | 1 |
 
@@ -19,20 +19,22 @@
 
 | Nivel | Hallazgos |
 |---|---|
-| sin-demostrar | 7 |
+| sin-demostrar | 8 |
+| alta | 1 |
+| media | 1 |
 
 ## Por repo vigilado
 
 | Repo | Hallazgos |
 |---|---|
-| ChromeDevTools/chrome-devtools-mcp | 13 |
 | oraios/serena | 13 |
+| ChromeDevTools/chrome-devtools-mcp | 12 |
 | wonderwhy-er/DesktopCommanderMCP | 12 |
+| PrefectHQ/fastmcp | 10 |
 | modelcontextprotocol/go-sdk | 10 |
 | upstash/context7 | 8 |
 | modelcontextprotocol/inspector | 8 |
 | modelcontextprotocol/servers | 8 |
-| PrefectHQ/fastmcp | 7 |
 | grafana/mcp-grafana | 4 |
 | modelcontextprotocol/rust-sdk | 3 |
 | googleapis/mcp-toolbox | 3 |
