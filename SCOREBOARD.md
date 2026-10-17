@@ -28,8 +28,8 @@
 | Repo | Hallazgos |
 |---|---|
 | oraios/serena | 13 |
-| ChromeDevTools/chrome-devtools-mcp | 12 |
 | wonderwhy-er/DesktopCommanderMCP | 12 |
+| ChromeDevTools/chrome-devtools-mcp | 11 |
 | PrefectHQ/fastmcp | 10 |
 | modelcontextprotocol/go-sdk | 10 |
 | upstash/context7 | 8 |
