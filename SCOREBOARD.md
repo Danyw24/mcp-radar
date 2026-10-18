@@ -29,16 +29,16 @@
 |---|---|
 | oraios/serena | 13 |
 | wonderwhy-er/DesktopCommanderMCP | 12 |
-| ChromeDevTools/chrome-devtools-mcp | 11 |
 | PrefectHQ/fastmcp | 10 |
 | modelcontextprotocol/go-sdk | 10 |
+| ChromeDevTools/chrome-devtools-mcp | 9 |
 | upstash/context7 | 8 |
 | modelcontextprotocol/inspector | 8 |
 | modelcontextprotocol/servers | 8 |
+| czlonkowski/n8n-mcp | 5 |
 | grafana/mcp-grafana | 4 |
 | modelcontextprotocol/rust-sdk | 3 |
 | googleapis/mcp-toolbox | 3 |
-| czlonkowski/n8n-mcp | 3 |
 
 ---
 _Generado por `scoreboard.py`. Lo que no se puede medir todavía aparece como «sin datos», nunca como una estimación._
