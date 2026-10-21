@@ -3,24 +3,23 @@
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 18 |
+| Verificados como reales | 15 |
 | Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 82 |
+| Sin verificar todavía | 85 |
 | **Precisión del monitor** | **100%** |
-| Hallazgos que después tuvieron CVE | 2 |
+| Hallazgos que después tuvieron CVE | 1 |
 
 ## Lead time — la métrica que justifica el sistema
 
 | CVE | Issue | Detectado |
 |---|---|---|
-| CVE-2026-109965 | #165 | 2026-10-12 |
 | CVE-2026-54283 | #228 | 2026-10-19 |
 
 ## Severidad calibrada
 
 | Nivel | Hallazgos |
 |---|---|
-| sin-demostrar | 13 |
+| sin-demostrar | 11 |
 | alta | 2 |
 | media | 1 |
 
@@ -28,18 +27,18 @@
 
 | Repo | Hallazgos |
 |---|---|
-| PrefectHQ/fastmcp | 15 |
-| modelcontextprotocol/go-sdk | 14 |
-| ChromeDevTools/chrome-devtools-mcp | 13 |
-| modelcontextprotocol/servers | 13 |
-| upstash/context7 | 9 |
-| oraios/serena | 8 |
+| modelcontextprotocol/inspector | 23 |
+| PrefectHQ/fastmcp | 13 |
+| modelcontextprotocol/go-sdk | 12 |
+| ChromeDevTools/chrome-devtools-mcp | 12 |
+| upstash/context7 | 8 |
+| oraios/serena | 6 |
 | modelcontextprotocol/rust-sdk | 5 |
-| modelcontextprotocol/inspector | 5 |
+| modelcontextprotocol/servers | 5 |
 | wonderwhy-er/DesktopCommanderMCP | 3 |
 | czlonkowski/n8n-mcp | 3 |
-| cloudflare/mcp-server-cloudflare | 2 |
 | awslabs/mcp | 2 |
+| googleapis/mcp-toolbox | 2 |
 
 ---
 _Generado por `scoreboard.py`. Lo que no se puede medir todavía aparece como «sin datos», nunca como una estimación._
