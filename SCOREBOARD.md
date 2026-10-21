@@ -3,9 +3,9 @@
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 20 |
+| Verificados como reales | 18 |
 | Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 80 |
+| Sin verificar todavía | 82 |
 | **Precisión del monitor** | **100%** |
 | Hallazgos que después tuvieron CVE | 2 |
 
@@ -20,7 +20,7 @@
 
 | Nivel | Hallazgos |
 |---|---|
-| sin-demostrar | 15 |
+| sin-demostrar | 13 |
 | alta | 2 |
 | media | 1 |
 
@@ -28,10 +28,10 @@
 
 | Repo | Hallazgos |
 |---|---|
-| PrefectHQ/fastmcp | 17 |
+| PrefectHQ/fastmcp | 15 |
+| modelcontextprotocol/go-sdk | 14 |
 | ChromeDevTools/chrome-devtools-mcp | 13 |
 | modelcontextprotocol/servers | 13 |
-| modelcontextprotocol/go-sdk | 12 |
 | upstash/context7 | 9 |
 | oraios/serena | 8 |
 | modelcontextprotocol/rust-sdk | 5 |
