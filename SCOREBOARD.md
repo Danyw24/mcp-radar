@@ -30,14 +30,14 @@
 | modelcontextprotocol/inspector | 23 |
 | ChromeDevTools/chrome-devtools-mcp | 13 |
 | PrefectHQ/fastmcp | 13 |
-| modelcontextprotocol/go-sdk | 10 |
+| modelcontextprotocol/go-sdk | 11 |
 | upstash/context7 | 8 |
 | modelcontextprotocol/rust-sdk | 7 |
 | modelcontextprotocol/servers | 5 |
 | oraios/serena | 4 |
-| googleapis/mcp-toolbox | 3 |
 | wonderwhy-er/DesktopCommanderMCP | 3 |
 | czlonkowski/n8n-mcp | 3 |
+| googleapis/mcp-toolbox | 2 |
 | cloudflare/mcp-server-cloudflare | 2 |
 
 ---
