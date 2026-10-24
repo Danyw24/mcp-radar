@@ -31,12 +31,12 @@
 | PrefectHQ/fastmcp | 14 |
 | ChromeDevTools/chrome-devtools-mcp | 13 |
 | modelcontextprotocol/go-sdk | 10 |
-| upstash/context7 | 8 |
 | modelcontextprotocol/rust-sdk | 7 |
+| upstash/context7 | 7 |
+| czlonkowski/n8n-mcp | 5 |
 | modelcontextprotocol/servers | 5 |
 | wonderwhy-er/DesktopCommanderMCP | 4 |
 | oraios/serena | 4 |
-| czlonkowski/n8n-mcp | 3 |
 | googleapis/mcp-toolbox | 2 |
 | cloudflare/mcp-server-cloudflare | 2 |
 
