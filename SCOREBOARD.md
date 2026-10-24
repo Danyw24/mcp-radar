@@ -1,11 +1,11 @@
-# Marcador MCP Radar · 2026-10-23
+# Marcador MCP Radar · 2026-10-24
 
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 15 |
+| Verificados como reales | 16 |
 | Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 85 |
+| Sin verificar todavía | 84 |
 | **Precisión del monitor** | **100%** |
 | Hallazgos que después tuvieron CVE | 1 |
 
@@ -20,22 +20,22 @@
 | Nivel | Hallazgos |
 |---|---|
 | sin-demostrar | 11 |
+| media | 2 |
 | alta | 2 |
-| media | 1 |
 
 ## Por repo vigilado
 
 | Repo | Hallazgos |
 |---|---|
 | modelcontextprotocol/inspector | 23 |
+| PrefectHQ/fastmcp | 14 |
 | ChromeDevTools/chrome-devtools-mcp | 13 |
-| PrefectHQ/fastmcp | 13 |
-| modelcontextprotocol/go-sdk | 11 |
+| modelcontextprotocol/go-sdk | 10 |
 | upstash/context7 | 8 |
 | modelcontextprotocol/rust-sdk | 7 |
 | modelcontextprotocol/servers | 5 |
+| wonderwhy-er/DesktopCommanderMCP | 4 |
 | oraios/serena | 4 |
-| wonderwhy-er/DesktopCommanderMCP | 3 |
 | czlonkowski/n8n-mcp | 3 |
 | googleapis/mcp-toolbox | 2 |
 | cloudflare/mcp-server-cloudflare | 2 |
