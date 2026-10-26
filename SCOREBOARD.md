@@ -27,11 +27,11 @@
 
 | Repo | Hallazgos |
 |---|---|
-| modelcontextprotocol/servers | 25 |
+| modelcontextprotocol/servers | 22 |
 | modelcontextprotocol/inspector | 18 |
 | PrefectHQ/fastmcp | 13 |
+| modelcontextprotocol/go-sdk | 12 |
 | czlonkowski/n8n-mcp | 10 |
-| modelcontextprotocol/go-sdk | 9 |
 | ChromeDevTools/chrome-devtools-mcp | 7 |
 | upstash/context7 | 5 |
 | modelcontextprotocol/rust-sdk | 4 |
