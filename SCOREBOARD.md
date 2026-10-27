@@ -3,9 +3,9 @@
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 16 |
+| Verificados como reales | 14 |
 | Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 84 |
+| Sin verificar todavía | 86 |
 | **Precisión del monitor** | **100%** |
 | Hallazgos que después tuvieron CVE | 1 |
 
@@ -19,8 +19,8 @@
 
 | Nivel | Hallazgos |
 |---|---|
-| sin-demostrar | 13 |
-| media | 1 |
+| sin-demostrar | 9 |
+| media | 3 |
 | alta | 1 |
 
 ## Por repo vigilado
@@ -29,12 +29,12 @@
 |---|---|
 | modelcontextprotocol/servers | 20 |
 | modelcontextprotocol/inspector | 18 |
-| PrefectHQ/fastmcp | 14 |
+| PrefectHQ/fastmcp | 12 |
+| modelcontextprotocol/go-sdk | 12 |
 | czlonkowski/n8n-mcp | 11 |
-| modelcontextprotocol/go-sdk | 11 |
 | ChromeDevTools/chrome-devtools-mcp | 7 |
 | upstash/context7 | 5 |
-| awslabs/mcp | 3 |
+| awslabs/mcp | 4 |
 | modelcontextprotocol/rust-sdk | 3 |
 | grafana/mcp-grafana | 2 |
 | wonderwhy-er/DesktopCommanderMCP | 2 |
