@@ -3,42 +3,39 @@
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 15 |
+| Verificados como reales | 12 |
 | Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 85 |
+| Sin verificar todavía | 88 |
 | **Precisión del monitor** | **100%** |
-| Hallazgos que después tuvieron CVE | 1 |
+| Hallazgos que después tuvieron CVE | 0 |
 
 ## Lead time — la métrica que justifica el sistema
 
-| CVE | Issue | Detectado |
-|---|---|---|
-| CVE-2026-54283 | #228 | 2026-10-19 |
+**Sin datos todavía.** Ningún hallazgo tiene CVE publicado aún. Esto es lo esperable al principio: la ventaja se demuestra recién cuando un CVE aparece *después* de que el radar lo vio. Si pasan meses y este número sigue vacío, el radar está detectando endurecimiento y no vulnerabilidades, y hay que replantearlo.
 
 ## Severidad calibrada
 
 | Nivel | Hallazgos |
 |---|---|
-| sin-demostrar | 9 |
-| media | 4 |
-| alta | 1 |
+| sin-demostrar | 7 |
+| media | 5 |
 
 ## Por repo vigilado
 
 | Repo | Hallazgos |
 |---|---|
-| modelcontextprotocol/servers | 20 |
-| modelcontextprotocol/inspector | 18 |
-| PrefectHQ/fastmcp | 13 |
-| modelcontextprotocol/go-sdk | 12 |
+| modelcontextprotocol/servers | 30 |
+| modelcontextprotocol/inspector | 26 |
+| PrefectHQ/fastmcp | 12 |
 | czlonkowski/n8n-mcp | 11 |
-| ChromeDevTools/chrome-devtools-mcp | 7 |
-| awslabs/mcp | 5 |
-| grafana/mcp-grafana | 4 |
-| modelcontextprotocol/rust-sdk | 3 |
-| wonderwhy-er/DesktopCommanderMCP | 2 |
-| cloudflare/mcp-server-cloudflare | 2 |
-| upstash/context7 | 2 |
+| modelcontextprotocol/go-sdk | 9 |
+| grafana/mcp-grafana | 3 |
+| awslabs/mcp | 3 |
+| modelcontextprotocol/rust-sdk | 2 |
+| wonderwhy-er/DesktopCommanderMCP | 1 |
+| googleapis/mcp-toolbox | 1 |
+| cloudflare/mcp-server-cloudflare | 1 |
+| ChromeDevTools/chrome-devtools-mcp | 1 |
 
 ---
 _Generado por `scoreboard.py`. Lo que no se puede medir todavía aparece como «sin datos», nunca como una estimación._
