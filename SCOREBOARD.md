@@ -1,4 +1,4 @@
-# Marcador MCP Radar · 2026-10-28
+# Marcador MCP Radar · 2026-10-29
 
 | Métrica | Valor |
 |---|---|
@@ -25,15 +25,15 @@
 | Repo | Hallazgos |
 |---|---|
 | modelcontextprotocol/servers | 30 |
-| modelcontextprotocol/inspector | 26 |
+| modelcontextprotocol/inspector | 24 |
 | PrefectHQ/fastmcp | 12 |
 | czlonkowski/n8n-mcp | 11 |
 | modelcontextprotocol/go-sdk | 9 |
+| awslabs/mcp | 4 |
 | grafana/mcp-grafana | 3 |
-| awslabs/mcp | 3 |
+| googleapis/mcp-toolbox | 2 |
 | modelcontextprotocol/rust-sdk | 2 |
 | wonderwhy-er/DesktopCommanderMCP | 1 |
-| googleapis/mcp-toolbox | 1 |
 | cloudflare/mcp-server-cloudflare | 1 |
 | ChromeDevTools/chrome-devtools-mcp | 1 |
 
