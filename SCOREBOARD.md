@@ -25,10 +25,10 @@
 | Repo | Hallazgos |
 |---|---|
 | modelcontextprotocol/servers | 30 |
-| modelcontextprotocol/inspector | 20 |
+| modelcontextprotocol/inspector | 19 |
 | PrefectHQ/fastmcp | 13 |
+| modelcontextprotocol/go-sdk | 11 |
 | czlonkowski/n8n-mcp | 11 |
-| modelcontextprotocol/go-sdk | 10 |
 | awslabs/mcp | 5 |
 | grafana/mcp-grafana | 4 |
 | googleapis/mcp-toolbox | 2 |
