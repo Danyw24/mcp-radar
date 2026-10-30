@@ -25,14 +25,14 @@
 | Repo | Hallazgos |
 |---|---|
 | modelcontextprotocol/servers | 30 |
-| modelcontextprotocol/inspector | 19 |
+| modelcontextprotocol/inspector | 16 |
 | PrefectHQ/fastmcp | 13 |
 | modelcontextprotocol/go-sdk | 11 |
 | czlonkowski/n8n-mcp | 11 |
-| awslabs/mcp | 5 |
+| awslabs/mcp | 6 |
+| modelcontextprotocol/rust-sdk | 4 |
 | grafana/mcp-grafana | 4 |
 | googleapis/mcp-toolbox | 2 |
-| modelcontextprotocol/rust-sdk | 2 |
 | wonderwhy-er/DesktopCommanderMCP | 1 |
 | cloudflare/mcp-server-cloudflare | 1 |
 | ChromeDevTools/chrome-devtools-mcp | 1 |
