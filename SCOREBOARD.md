@@ -3,9 +3,9 @@
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 14 |
+| Verificados como reales | 15 |
 | Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 86 |
+| Sin verificar todavía | 85 |
 | **Precisión del monitor** | **100%** |
 | Hallazgos que después tuvieron CVE | 0 |
 
@@ -18,15 +18,15 @@
 | Nivel | Hallazgos |
 |---|---|
 | sin-demostrar | 9 |
-| media | 5 |
+| media | 6 |
 
 ## Por repo vigilado
 
 | Repo | Hallazgos |
 |---|---|
 | modelcontextprotocol/servers | 30 |
-| PrefectHQ/fastmcp | 14 |
-| modelcontextprotocol/inspector | 13 |
+| PrefectHQ/fastmcp | 15 |
+| modelcontextprotocol/inspector | 12 |
 | modelcontextprotocol/go-sdk | 11 |
 | czlonkowski/n8n-mcp | 11 |
 | awslabs/mcp | 8 |
