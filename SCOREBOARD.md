@@ -1,11 +1,11 @@
-# Marcador MCP Radar · 2026-11-02
+# Marcador MCP Radar · 2026-11-03
 
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 15 |
+| Verificados como reales | 17 |
 | Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 85 |
+| Sin verificar todavía | 83 |
 | **Precisión del monitor** | **100%** |
 | Hallazgos que después tuvieron CVE | 0 |
 
@@ -17,25 +17,24 @@
 
 | Nivel | Hallazgos |
 |---|---|
-| sin-demostrar | 9 |
+| sin-demostrar | 10 |
 | media | 6 |
+| baja | 1 |
 
 ## Por repo vigilado
 
 | Repo | Hallazgos |
 |---|---|
 | modelcontextprotocol/servers | 30 |
-| PrefectHQ/fastmcp | 15 |
-| modelcontextprotocol/go-sdk | 11 |
+| PrefectHQ/fastmcp | 17 |
+| modelcontextprotocol/go-sdk | 12 |
 | czlonkowski/n8n-mcp | 11 |
-| modelcontextprotocol/inspector | 10 |
-| awslabs/mcp | 9 |
-| modelcontextprotocol/rust-sdk | 4 |
+| awslabs/mcp | 10 |
+| modelcontextprotocol/inspector | 9 |
 | grafana/mcp-grafana | 4 |
+| modelcontextprotocol/rust-sdk | 3 |
 | wonderwhy-er/DesktopCommanderMCP | 2 |
 | googleapis/mcp-toolbox | 2 |
-| cloudflare/mcp-server-cloudflare | 1 |
-| ChromeDevTools/chrome-devtools-mcp | 1 |
 
 ---
 _Generado por `scoreboard.py`. Lo que no se puede medir todavía aparece como «sin datos», nunca como una estimación._
