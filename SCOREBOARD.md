@@ -28,9 +28,9 @@
 | modelcontextprotocol/inspector | 32 |
 | modelcontextprotocol/servers | 17 |
 | PrefectHQ/fastmcp | 12 |
-| awslabs/mcp | 11 |
+| awslabs/mcp | 10 |
 | wonderwhy-er/DesktopCommanderMCP | 9 |
-| modelcontextprotocol/rust-sdk | 7 |
+| modelcontextprotocol/rust-sdk | 8 |
 | modelcontextprotocol/go-sdk | 4 |
 | grafana/mcp-grafana | 3 |
 | ChromeDevTools/chrome-devtools-mcp | 2 |
