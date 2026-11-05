@@ -3,9 +3,9 @@
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 15 |
+| Verificados como reales | 12 |
 | Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 85 |
+| Sin verificar todavía | 88 |
 | **Precisión del monitor** | **100%** |
 | Hallazgos que después tuvieron CVE | 0 |
 
@@ -17,8 +17,8 @@
 
 | Nivel | Hallazgos |
 |---|---|
-| sin-demostrar | 9 |
-| media | 5 |
+| sin-demostrar | 8 |
+| media | 3 |
 | baja | 1 |
 
 ## Por repo vigilado
@@ -27,16 +27,16 @@
 |---|---|
 | modelcontextprotocol/inspector | 32 |
 | modelcontextprotocol/servers | 17 |
-| PrefectHQ/fastmcp | 15 |
+| PrefectHQ/fastmcp | 12 |
 | awslabs/mcp | 11 |
+| wonderwhy-er/DesktopCommanderMCP | 9 |
 | modelcontextprotocol/rust-sdk | 7 |
-| modelcontextprotocol/go-sdk | 5 |
-| grafana/mcp-grafana | 4 |
-| wonderwhy-er/DesktopCommanderMCP | 3 |
-| czlonkowski/n8n-mcp | 2 |
+| modelcontextprotocol/go-sdk | 4 |
+| grafana/mcp-grafana | 3 |
+| ChromeDevTools/chrome-devtools-mcp | 2 |
 | upstash/context7 | 1 |
-| ChromeDevTools/chrome-devtools-mcp | 1 |
 | github/github-mcp-server | 1 |
+| googleapis/mcp-toolbox | 1 |
 
 ---
 _Generado por `scoreboard.py`. Lo que no se puede medir todavía aparece como «sin datos», nunca como una estimación._
