@@ -1,11 +1,11 @@
-# Marcador MCP Radar · 2026-11-05
+# Marcador MCP Radar · 2026-11-06
 
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 12 |
+| Verificados como reales | 11 |
 | Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 88 |
+| Sin verificar todavía | 89 |
 | **Precisión del monitor** | **100%** |
 | Hallazgos que después tuvieron CVE | 0 |
 
@@ -18,7 +18,7 @@
 | Nivel | Hallazgos |
 |---|---|
 | sin-demostrar | 8 |
-| media | 3 |
+| media | 2 |
 | baja | 1 |
 
 ## Por repo vigilado
@@ -27,8 +27,8 @@
 |---|---|
 | modelcontextprotocol/inspector | 32 |
 | modelcontextprotocol/servers | 17 |
-| PrefectHQ/fastmcp | 12 |
-| awslabs/mcp | 10 |
+| awslabs/mcp | 11 |
+| PrefectHQ/fastmcp | 11 |
 | wonderwhy-er/DesktopCommanderMCP | 9 |
 | modelcontextprotocol/rust-sdk | 8 |
 | modelcontextprotocol/go-sdk | 4 |
