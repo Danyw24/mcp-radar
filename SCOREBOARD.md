@@ -3,10 +3,10 @@
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 21 |
+| Verificados como reales | 26 |
 | Descartados como falsos positivos | 1 |
-| Sin verificar todavía | 78 |
-| **Precisión del monitor** | **95%** |
+| Sin verificar todavía | 73 |
+| **Precisión del monitor** | **96%** |
 | Hallazgos que después tuvieron CVE | 0 |
 
 ## Lead time — la métrica que justifica el sistema
@@ -17,27 +17,27 @@
 
 | Nivel | Hallazgos |
 |---|---|
-| sin-demostrar | 17 |
-| media | 2 |
+| sin-demostrar | 20 |
+| media | 4 |
+| baja | 1 |
 | ninguna | 1 |
 | alta | 1 |
-| baja | 1 |
 
 ## Por repo vigilado
 
 | Repo | Hallazgos |
 |---|---|
+| PrefectHQ/fastmcp | 27 |
 | modelcontextprotocol/inspector | 23 |
-| PrefectHQ/fastmcp | 21 |
-| wonderwhy-er/DesktopCommanderMCP | 10 |
 | czlonkowski/n8n-mcp | 10 |
-| awslabs/mcp | 7 |
+| wonderwhy-er/DesktopCommanderMCP | 9 |
 | modelcontextprotocol/servers | 7 |
-| modelcontextprotocol/rust-sdk | 6 |
-| modelcontextprotocol/go-sdk | 4 |
-| grafana/mcp-grafana | 4 |
+| grafana/mcp-grafana | 5 |
+| modelcontextprotocol/rust-sdk | 5 |
+| awslabs/mcp | 4 |
 | ChromeDevTools/chrome-devtools-mcp | 3 |
 | upstash/context7 | 2 |
+| modelcontextprotocol/go-sdk | 2 |
 | modelcontextprotocol/typescript-sdk | 1 |
 
 ---
