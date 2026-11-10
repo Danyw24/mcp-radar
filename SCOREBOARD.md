@@ -3,10 +3,10 @@
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 16 |
-| Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 84 |
-| **Precisión del monitor** | **100%** |
+| Verificados como reales | 21 |
+| Descartados como falsos positivos | 1 |
+| Sin verificar todavía | 78 |
+| **Precisión del monitor** | **95%** |
 | Hallazgos que después tuvieron CVE | 0 |
 
 ## Lead time — la métrica que justifica el sistema
@@ -17,8 +17,9 @@
 
 | Nivel | Hallazgos |
 |---|---|
-| sin-demostrar | 11 |
-| media | 3 |
+| sin-demostrar | 17 |
+| media | 2 |
+| ninguna | 1 |
 | alta | 1 |
 | baja | 1 |
 
@@ -27,17 +28,17 @@
 | Repo | Hallazgos |
 |---|---|
 | modelcontextprotocol/inspector | 23 |
-| PrefectHQ/fastmcp | 16 |
-| awslabs/mcp | 11 |
+| PrefectHQ/fastmcp | 21 |
+| wonderwhy-er/DesktopCommanderMCP | 10 |
 | czlonkowski/n8n-mcp | 10 |
-| wonderwhy-er/DesktopCommanderMCP | 9 |
-| modelcontextprotocol/rust-sdk | 8 |
+| awslabs/mcp | 7 |
 | modelcontextprotocol/servers | 7 |
-| grafana/mcp-grafana | 5 |
-| modelcontextprotocol/go-sdk | 5 |
-| googleapis/mcp-toolbox | 2 |
-| ChromeDevTools/chrome-devtools-mcp | 2 |
-| upstash/context7 | 1 |
+| modelcontextprotocol/rust-sdk | 6 |
+| modelcontextprotocol/go-sdk | 4 |
+| grafana/mcp-grafana | 4 |
+| ChromeDevTools/chrome-devtools-mcp | 3 |
+| upstash/context7 | 2 |
+| modelcontextprotocol/typescript-sdk | 1 |
 
 ---
 _Generado por `scoreboard.py`. Lo que no se puede medir todavía aparece como «sin datos», nunca como una estimación._
