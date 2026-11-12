@@ -1,11 +1,11 @@
-# Marcador MCP Radar · 2026-11-11
+# Marcador MCP Radar · 2026-11-12
 
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 26 |
+| Verificados como reales | 25 |
 | Descartados como falsos positivos | 1 |
-| Sin verificar todavía | 73 |
+| Sin verificar todavía | 74 |
 | **Precisión del monitor** | **96%** |
 | Hallazgos que después tuvieron CVE | 0 |
 
@@ -17,7 +17,7 @@
 
 | Nivel | Hallazgos |
 |---|---|
-| sin-demostrar | 20 |
+| sin-demostrar | 19 |
 | media | 4 |
 | baja | 1 |
 | ninguna | 1 |
@@ -27,14 +27,14 @@
 
 | Repo | Hallazgos |
 |---|---|
-| PrefectHQ/fastmcp | 28 |
+| PrefectHQ/fastmcp | 27 |
 | modelcontextprotocol/servers | 25 |
+| modelcontextprotocol/inspector | 11 |
 | czlonkowski/n8n-mcp | 10 |
-| modelcontextprotocol/inspector | 8 |
 | wonderwhy-er/DesktopCommanderMCP | 7 |
-| ChromeDevTools/chrome-devtools-mcp | 5 |
 | grafana/mcp-grafana | 5 |
-| awslabs/mcp | 4 |
+| ChromeDevTools/chrome-devtools-mcp | 4 |
+| awslabs/mcp | 3 |
 | googleapis/mcp-toolbox | 2 |
 | modelcontextprotocol/rust-sdk | 2 |
 | modelcontextprotocol/go-sdk | 2 |
