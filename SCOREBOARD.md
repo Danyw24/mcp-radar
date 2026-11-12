@@ -31,8 +31,8 @@
 | modelcontextprotocol/servers | 25 |
 | modelcontextprotocol/inspector | 11 |
 | czlonkowski/n8n-mcp | 10 |
-| wonderwhy-er/DesktopCommanderMCP | 7 |
-| grafana/mcp-grafana | 5 |
+| wonderwhy-er/DesktopCommanderMCP | 6 |
+| grafana/mcp-grafana | 6 |
 | ChromeDevTools/chrome-devtools-mcp | 4 |
 | awslabs/mcp | 3 |
 | googleapis/mcp-toolbox | 2 |
