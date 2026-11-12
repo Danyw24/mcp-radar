@@ -31,11 +31,11 @@
 | modelcontextprotocol/servers | 25 |
 | modelcontextprotocol/inspector | 11 |
 | czlonkowski/n8n-mcp | 10 |
-| wonderwhy-er/DesktopCommanderMCP | 6 |
 | grafana/mcp-grafana | 6 |
+| wonderwhy-er/DesktopCommanderMCP | 5 |
 | ChromeDevTools/chrome-devtools-mcp | 4 |
+| googleapis/mcp-toolbox | 3 |
 | awslabs/mcp | 3 |
-| googleapis/mcp-toolbox | 2 |
 | modelcontextprotocol/rust-sdk | 2 |
 | modelcontextprotocol/go-sdk | 2 |
 | upstash/context7 | 1 |
