@@ -32,8 +32,8 @@
 | modelcontextprotocol/inspector | 11 |
 | czlonkowski/n8n-mcp | 10 |
 | grafana/mcp-grafana | 6 |
-| wonderwhy-er/DesktopCommanderMCP | 5 |
-| ChromeDevTools/chrome-devtools-mcp | 4 |
+| ChromeDevTools/chrome-devtools-mcp | 5 |
+| wonderwhy-er/DesktopCommanderMCP | 4 |
 | googleapis/mcp-toolbox | 3 |
 | awslabs/mcp | 3 |
 | modelcontextprotocol/rust-sdk | 2 |
