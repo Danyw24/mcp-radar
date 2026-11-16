@@ -35,10 +35,10 @@
 | ChromeDevTools/chrome-devtools-mcp | 5 |
 | googleapis/mcp-toolbox | 4 |
 | modelcontextprotocol/rust-sdk | 4 |
+| modelcontextprotocol/go-sdk | 2 |
 | wonderwhy-er/DesktopCommanderMCP | 2 |
-| awslabs/mcp | 2 |
+| awslabs/mcp | 1 |
 | upstash/context7 | 1 |
-| modelcontextprotocol/go-sdk | 1 |
 
 ---
 _Generado por `scoreboard.py`. Lo que no se puede medir todavía aparece como «sin datos», nunca como una estimación._
