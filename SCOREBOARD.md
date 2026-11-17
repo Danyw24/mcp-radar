@@ -1,4 +1,4 @@
-# Marcador MCP Radar · 2026-11-16
+# Marcador MCP Radar · 2026-11-17
 
 | Métrica | Valor |
 |---|---|
@@ -30,15 +30,15 @@
 | PrefectHQ/fastmcp | 27 |
 | modelcontextprotocol/servers | 25 |
 | modelcontextprotocol/inspector | 11 |
-| czlonkowski/n8n-mcp | 10 |
+| modelcontextprotocol/rust-sdk | 8 |
 | grafana/mcp-grafana | 7 |
 | ChromeDevTools/chrome-devtools-mcp | 5 |
-| googleapis/mcp-toolbox | 4 |
-| modelcontextprotocol/rust-sdk | 4 |
+| czlonkowski/n8n-mcp | 5 |
+| googleapis/mcp-toolbox | 3 |
+| awslabs/mcp | 2 |
 | modelcontextprotocol/go-sdk | 2 |
 | wonderwhy-er/DesktopCommanderMCP | 2 |
-| awslabs/mcp | 1 |
-| upstash/context7 | 1 |
+| microsoft/playwright-mcp | 1 |
 
 ---
 _Generado por `scoreboard.py`. Lo que no se puede medir todavía aparece como «sin datos», nunca como una estimación._
