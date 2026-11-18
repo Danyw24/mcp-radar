@@ -1,12 +1,12 @@
-# Marcador MCP Radar · 2026-11-17
+# Marcador MCP Radar · 2026-11-18
 
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 26 |
+| Verificados como reales | 28 |
 | Descartados como falsos positivos | 1 |
-| Sin verificar todavía | 73 |
-| **Precisión del monitor** | **96%** |
+| Sin verificar todavía | 71 |
+| **Precisión del monitor** | **97%** |
 | Hallazgos que después tuvieron CVE | 0 |
 
 ## Lead time — la métrica que justifica el sistema
@@ -17,27 +17,27 @@
 
 | Nivel | Hallazgos |
 |---|---|
-| sin-demostrar | 19 |
-| media | 5 |
+| sin-demostrar | 16 |
+| media | 8 |
+| alta | 3 |
 | baja | 1 |
 | ninguna | 1 |
-| alta | 1 |
 
 ## Por repo vigilado
 
 | Repo | Hallazgos |
 |---|---|
-| PrefectHQ/fastmcp | 29 |
+| PrefectHQ/fastmcp | 31 |
 | modelcontextprotocol/servers | 25 |
 | modelcontextprotocol/inspector | 11 |
 | modelcontextprotocol/rust-sdk | 9 |
-| grafana/mcp-grafana | 7 |
-| ChromeDevTools/chrome-devtools-mcp | 5 |
+| ChromeDevTools/chrome-devtools-mcp | 6 |
+| grafana/mcp-grafana | 4 |
 | modelcontextprotocol/go-sdk | 3 |
 | googleapis/mcp-toolbox | 3 |
+| microsoft/playwright-mcp | 2 |
 | awslabs/mcp | 2 |
 | wonderwhy-er/DesktopCommanderMCP | 2 |
-| microsoft/playwright-mcp | 1 |
 | upstash/context7 | 1 |
 
 ---
