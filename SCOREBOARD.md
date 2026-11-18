@@ -3,10 +3,10 @@
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 28 |
-| Descartados como falsos positivos | 1 |
-| Sin verificar todavía | 71 |
-| **Precisión del monitor** | **97%** |
+| Verificados como reales | 8 |
+| Descartados como falsos positivos | 0 |
+| Sin verificar todavía | 92 |
+| **Precisión del monitor** | **100%** |
 | Hallazgos que después tuvieron CVE | 0 |
 
 ## Lead time — la métrica que justifica el sistema
@@ -17,28 +17,24 @@
 
 | Nivel | Hallazgos |
 |---|---|
-| sin-demostrar | 16 |
-| media | 8 |
+| media | 5 |
 | alta | 3 |
-| baja | 1 |
-| ninguna | 1 |
 
 ## Por repo vigilado
 
 | Repo | Hallazgos |
 |---|---|
-| PrefectHQ/fastmcp | 31 |
-| modelcontextprotocol/servers | 25 |
-| modelcontextprotocol/inspector | 11 |
+| modelcontextprotocol/servers | 38 |
+| modelcontextprotocol/inspector | 25 |
+| PrefectHQ/fastmcp | 10 |
 | modelcontextprotocol/rust-sdk | 9 |
-| ChromeDevTools/chrome-devtools-mcp | 6 |
-| grafana/mcp-grafana | 4 |
-| modelcontextprotocol/go-sdk | 3 |
-| googleapis/mcp-toolbox | 3 |
+| ChromeDevTools/chrome-devtools-mcp | 5 |
+| googleapis/mcp-toolbox | 4 |
 | microsoft/playwright-mcp | 2 |
+| modelcontextprotocol/go-sdk | 2 |
 | awslabs/mcp | 2 |
-| wonderwhy-er/DesktopCommanderMCP | 2 |
-| upstash/context7 | 1 |
+| grafana/mcp-grafana | 2 |
+| wonderwhy-er/DesktopCommanderMCP | 1 |
 
 ---
 _Generado por `scoreboard.py`. Lo que no se puede medir todavía aparece como «sin datos», nunca como una estimación._
