@@ -27,13 +27,13 @@
 | Repo | Hallazgos |
 |---|---|
 | modelcontextprotocol/servers | 28 |
-| modelcontextprotocol/inspector | 25 |
+| modelcontextprotocol/inspector | 23 |
 | googleapis/mcp-toolbox | 12 |
-| PrefectHQ/fastmcp | 9 |
-| modelcontextprotocol/rust-sdk | 8 |
-| ChromeDevTools/chrome-devtools-mcp | 4 |
-| grafana/mcp-grafana | 3 |
+| PrefectHQ/fastmcp | 10 |
+| modelcontextprotocol/rust-sdk | 9 |
+| grafana/mcp-grafana | 4 |
 | awslabs/mcp | 3 |
+| ChromeDevTools/chrome-devtools-mcp | 3 |
 | microsoft/playwright-mcp | 3 |
 | modelcontextprotocol/go-sdk | 2 |
 | upstash/context7 | 1 |
