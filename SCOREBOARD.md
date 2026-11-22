@@ -3,9 +3,9 @@
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 12 |
+| Verificados como reales | 18 |
 | Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 88 |
+| Sin verificar todavía | 82 |
 | **Precisión del monitor** | **100%** |
 | Hallazgos que después tuvieron CVE | 1 |
 
@@ -19,18 +19,18 @@
 
 | Nivel | Hallazgos |
 |---|---|
-| media | 5 |
-| alta | 3 |
-| sin-demostrar | 2 |
-| baja | 1 |
+| media | 6 |
+| sin-demostrar | 5 |
+| alta | 4 |
+| baja | 2 |
 
 ## Por repo vigilado
 
 | Repo | Hallazgos |
 |---|---|
 | modelcontextprotocol/servers | 28 |
-| modelcontextprotocol/inspector | 20 |
-| PrefectHQ/fastmcp | 13 |
+| PrefectHQ/fastmcp | 19 |
+| modelcontextprotocol/inspector | 14 |
 | googleapis/mcp-toolbox | 12 |
 | modelcontextprotocol/rust-sdk | 9 |
 | grafana/mcp-grafana | 4 |
