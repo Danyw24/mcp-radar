@@ -32,9 +32,9 @@
 | modelcontextprotocol/servers | 28 |
 | modelcontextprotocol/inspector | 14 |
 | googleapis/mcp-toolbox | 10 |
-| modelcontextprotocol/rust-sdk | 5 |
+| grafana/mcp-grafana | 4 |
 | awslabs/mcp | 4 |
-| grafana/mcp-grafana | 3 |
+| modelcontextprotocol/rust-sdk | 4 |
 | microsoft/playwright-mcp | 3 |
 | ChromeDevTools/chrome-devtools-mcp | 2 |
 | upstash/context7 | 1 |
