@@ -1,11 +1,11 @@
-# Marcador MCP Radar · 2026-11-23
+# Marcador MCP Radar · 2026-11-24
 
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 20 |
+| Verificados como reales | 24 |
 | Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 80 |
+| Sin verificar todavía | 76 |
 | **Precisión del monitor** | **100%** |
 | Hallazgos que después tuvieron CVE | 1 |
 
@@ -19,7 +19,7 @@
 
 | Nivel | Hallazgos |
 |---|---|
-| sin-demostrar | 7 |
+| sin-demostrar | 11 |
 | media | 6 |
 | alta | 4 |
 | baja | 2 |
@@ -28,18 +28,18 @@
 
 | Repo | Hallazgos |
 |---|---|
+| PrefectHQ/fastmcp | 28 |
 | modelcontextprotocol/servers | 28 |
-| PrefectHQ/fastmcp | 24 |
 | modelcontextprotocol/inspector | 14 |
-| googleapis/mcp-toolbox | 11 |
-| modelcontextprotocol/rust-sdk | 8 |
-| grafana/mcp-grafana | 4 |
+| googleapis/mcp-toolbox | 10 |
+| modelcontextprotocol/rust-sdk | 5 |
+| awslabs/mcp | 4 |
+| grafana/mcp-grafana | 3 |
 | microsoft/playwright-mcp | 3 |
-| awslabs/mcp | 2 |
 | ChromeDevTools/chrome-devtools-mcp | 2 |
-| modelcontextprotocol/go-sdk | 2 |
 | upstash/context7 | 1 |
 | github/github-mcp-server | 1 |
+| modelcontextprotocol/go-sdk | 1 |
 
 ---
 _Generado por `scoreboard.py`. Lo que no se puede medir todavía aparece como «sin datos», nunca como una estimación._
