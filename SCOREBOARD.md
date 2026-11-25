@@ -32,14 +32,13 @@
 | modelcontextprotocol/servers | 28 |
 | modelcontextprotocol/inspector | 14 |
 | googleapis/mcp-toolbox | 10 |
+| grafana/mcp-grafana | 5 |
+| modelcontextprotocol/rust-sdk | 5 |
 | awslabs/mcp | 4 |
-| modelcontextprotocol/rust-sdk | 4 |
-| grafana/mcp-grafana | 4 |
-| microsoft/playwright-mcp | 3 |
 | ChromeDevTools/chrome-devtools-mcp | 2 |
+| microsoft/playwright-mcp | 2 |
 | upstash/context7 | 1 |
 | github/github-mcp-server | 1 |
-| modelcontextprotocol/go-sdk | 1 |
 
 ---
 _Generado por `scoreboard.py`. Lo que no se puede medir todavía aparece como «sin datos», nunca como una estimación._
