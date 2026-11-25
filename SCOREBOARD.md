@@ -1,4 +1,4 @@
-# Marcador MCP Radar · 2026-11-24
+# Marcador MCP Radar · 2026-11-25
 
 | Métrica | Valor |
 |---|---|
@@ -32,9 +32,9 @@
 | modelcontextprotocol/servers | 28 |
 | modelcontextprotocol/inspector | 14 |
 | googleapis/mcp-toolbox | 10 |
-| grafana/mcp-grafana | 4 |
 | awslabs/mcp | 4 |
 | modelcontextprotocol/rust-sdk | 4 |
+| grafana/mcp-grafana | 4 |
 | microsoft/playwright-mcp | 3 |
 | ChromeDevTools/chrome-devtools-mcp | 2 |
 | upstash/context7 | 1 |
