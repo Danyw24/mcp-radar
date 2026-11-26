@@ -3,9 +3,9 @@
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 23 |
+| Verificados como reales | 21 |
 | Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 77 |
+| Sin verificar todavía | 79 |
 | **Precisión del monitor** | **100%** |
 | Hallazgos que después tuvieron CVE | 1 |
 
@@ -20,22 +20,22 @@
 | Nivel | Hallazgos |
 |---|---|
 | sin-demostrar | 12 |
-| media | 5 |
-| alta | 3 |
+| media | 4 |
 | baja | 2 |
+| alta | 2 |
 
 ## Por repo vigilado
 
 | Repo | Hallazgos |
 |---|---|
 | modelcontextprotocol/servers | 28 |
-| PrefectHQ/fastmcp | 26 |
+| PrefectHQ/fastmcp | 24 |
 | modelcontextprotocol/inspector | 14 |
 | googleapis/mcp-toolbox | 10 |
 | grafana/mcp-grafana | 7 |
-| modelcontextprotocol/rust-sdk | 4 |
+| modelcontextprotocol/rust-sdk | 5 |
 | awslabs/mcp | 4 |
-| ChromeDevTools/chrome-devtools-mcp | 2 |
+| ChromeDevTools/chrome-devtools-mcp | 3 |
 | microsoft/playwright-mcp | 2 |
 | czlonkowski/n8n-mcp | 1 |
 | upstash/context7 | 1 |
