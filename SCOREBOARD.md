@@ -1,4 +1,4 @@
-# Marcador MCP Radar · 2026-11-26
+# Marcador MCP Radar · 2026-11-27
 
 | Métrica | Valor |
 |---|---|
@@ -19,10 +19,10 @@
 
 | Nivel | Hallazgos |
 |---|---|
-| sin-demostrar | 12 |
-| media | 4 |
+| sin-demostrar | 15 |
 | baja | 2 |
-| alta | 2 |
+| media | 2 |
+| alta | 1 |
 
 ## Por repo vigilado
 
