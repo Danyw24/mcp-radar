@@ -3,9 +3,9 @@
 | Métrica | Valor |
 |---|---|
 | Hallazgos totales | 100 |
-| Verificados como reales | 21 |
+| Verificados como reales | 20 |
 | Descartados como falsos positivos | 0 |
-| Sin verificar todavía | 79 |
+| Sin verificar todavía | 80 |
 | **Precisión del monitor** | **100%** |
 | Hallazgos que después tuvieron CVE | 1 |
 
@@ -21,25 +21,25 @@
 |---|---|
 | sin-demostrar | 15 |
 | baja | 2 |
-| media | 2 |
+| media | 1 |
 | alta | 1 |
 
 ## Por repo vigilado
 
 | Repo | Hallazgos |
 |---|---|
-| modelcontextprotocol/servers | 28 |
-| PrefectHQ/fastmcp | 24 |
+| modelcontextprotocol/servers | 31 |
+| PrefectHQ/fastmcp | 23 |
 | modelcontextprotocol/inspector | 14 |
 | googleapis/mcp-toolbox | 10 |
 | grafana/mcp-grafana | 7 |
 | modelcontextprotocol/rust-sdk | 5 |
 | awslabs/mcp | 4 |
-| ChromeDevTools/chrome-devtools-mcp | 3 |
-| microsoft/playwright-mcp | 2 |
+| ChromeDevTools/chrome-devtools-mcp | 2 |
 | czlonkowski/n8n-mcp | 1 |
 | upstash/context7 | 1 |
 | github/github-mcp-server | 1 |
+| microsoft/playwright-mcp | 1 |
 
 ---
 _Generado por `scoreboard.py`. Lo que no se puede medir todavía aparece como «sin datos», nunca como una estimación._
